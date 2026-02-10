@@ -13,7 +13,7 @@ Para usar un gestor distinto a **pnpm**:
 - **yarn:** `yarn create next-app . --typescript`
 - **bun:** `bun create next-app@latest . --typescript`
 
-## 2. Instalar dependencias
+## Instalar dependencias.
 
 Para instalar los paquetes necesarios:
 
