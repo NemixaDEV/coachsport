@@ -6,7 +6,7 @@
     pnpm create next-app@latest . --typescript
 ```
 
-Si prefieres usar un gestor distinto a **pnpm**, utiliza el comando correspondiente:
+Para usar un gestor distinto a **pnpm**:
 
 - **pnpm:** `pnpm create next-app@latest . --typescript`
 - **npm:** `npx create-next-app@latest . --typescript`
@@ -15,7 +15,7 @@ Si prefieres usar un gestor distinto a **pnpm**, utiliza el comando correspondie
 
 ## 2. Instalar dependencias
 
-Para instalar los paquetes necesarios de un proyecto existente:
+Para instalar los paquetes necesarios:
 
 ```bash
 # Con pnpm
