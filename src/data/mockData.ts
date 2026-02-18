@@ -12,19 +12,22 @@ export const adminUser: User = {
   createdAt: new Date('2024-01-01'),
 }
 
-// // Entrenador (empleado)
-// export const trainerUser: User = {
-//   id: '2',
-//   email: 'trainer@coachsport.dev',
-//   name: 'Ana García',
-//   role: 'trainer',
-//   isTrainer: true,
-//   phone: '+34 600 234 567',
-//   avatar: 'https://i.pravatar.cc/150?img=47',
-//   bio: 'Especialista en calistenia avanzada y movilidad',
-//   certifications: ['Certificación Internacional de Calistenia', 'Entrenador Personal Nivel 3'],
-//   createdAt: new Date('2024-01-15'),
-// };
+// Entrenador (empleado)
+export const trainerUser: User = {
+  id: '2',
+  email: 'trainer@coachsport.dev',
+  name: 'Ana García',
+  role: 'user',
+  isTrainer: true,
+  phone: '+34 600 234 567',
+  avatar: 'https://i.pravatar.cc/150?img=47',
+  bio: 'Especialista en calistenia avanzada y movilidad',
+  certifications: [
+    'Certificación Internacional de Calistenia',
+    'Entrenador Personal Nivel 3',
+  ],
+  createdAt: new Date('2024-01-15'),
+}
 
 // Cliente 1 - Sin suscripción activa (expirada)
 export const client1: User = {
