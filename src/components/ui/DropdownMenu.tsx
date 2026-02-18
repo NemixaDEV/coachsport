@@ -1,70 +1,70 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import { Edit, Trash2, Copy, MoreVertical } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react'
+import { cn } from '@/lib/utils'
+import { Edit, Trash2, Copy, MoreVertical } from 'lucide-react'
 
 interface DropdownMenuProps {
-  onEdit?: () => void;
-  onDelete?: () => void;
-  onDuplicate?: () => void;
-  className?: string;
+  onEdit?: () => void
+  onDelete?: () => void
+  onDuplicate?: () => void
+  className?: string
 }
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   onEdit,
   onDelete,
-  onDuplicate,
-  className
+  // onDuplicate,
+  className,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState<'bottom' | 'top'>('bottom');
-  const menuRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const [position, setPosition] = useState<'bottom' | 'top'>('bottom')
+  const menuRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        setIsOpen(false)
       }
-    };
+    }
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      
+      document.addEventListener('mousedown', handleClickOutside)
+
       // Calcular si el menú debe aparecer arriba o abajo
       if (buttonRef.current) {
-        const rect = buttonRef.current.getBoundingClientRect();
-        const spaceBelow = window.innerHeight - rect.bottom;
-        const spaceAbove = rect.top;
-        const menuHeight = 200; // Altura aproximada del menú
-        
+        const rect = buttonRef.current.getBoundingClientRect()
+        const spaceBelow = window.innerHeight - rect.bottom
+        const spaceAbove = rect.top
+        const menuHeight = 200 // Altura aproximada del menú
+
         // Si no hay suficiente espacio abajo pero sí arriba, mostrar arriba
         if (spaceBelow < menuHeight && spaceAbove > menuHeight) {
-          setPosition('top');
+          setPosition('top')
         } else {
-          setPosition('bottom');
+          setPosition('bottom')
         }
       }
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
 
   const handleOptionClick = (callback?: () => void) => {
     if (callback) {
-      callback();
+      callback()
     }
-    setIsOpen(false);
-  };
+    setIsOpen(false)
+  }
 
   return (
     <div className={cn('relative', className)} ref={menuRef}>
       <button
         ref={buttonRef}
         onClick={(e) => {
-          e.stopPropagation();
-          setIsOpen(!isOpen);
+          e.stopPropagation()
+          setIsOpen(!isOpen)
         }}
         className="p-1 rounded-full hover:bg-muted/50 transition-colors"
       >
@@ -75,7 +75,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         <div
           className={cn(
             'absolute right-0 z-[100] min-w-[160px] rounded-lg shadow-lg border border-border overflow-hidden',
-            position === 'top' ? 'bottom-10' : 'top-10'
+            position === 'top' ? 'bottom-10' : 'top-10',
           )}
           style={{ backgroundColor: 'var(--card-background)', zIndex: 100 }}
           onClick={(e) => e.stopPropagation()}
@@ -89,7 +89,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
               <span>Editar</span>
             </button>
           )}
-          {onDuplicate && (
+          {/* {onDuplicate && (
             <button
               onClick={() => handleOptionClick(onDuplicate)}
               className="w-full px-4 py-3 text-left text-sm text-foreground hover:bg-muted/50 transition-colors flex items-center gap-3"
@@ -97,7 +97,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
               <Copy size={16} className="text-muted-foreground" />
               <span>Duplicar</span>
             </button>
-          )}
+          )} */}
           {onDelete && (
             <button
               onClick={() => handleOptionClick(onDelete)}
@@ -110,5 +110,5 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}

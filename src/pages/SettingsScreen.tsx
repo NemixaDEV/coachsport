@@ -1,50 +1,54 @@
-import { useNavigate } from 'react-router-dom';
-import { Card } from '@/components/ui/Card';
-import { Modal } from '@/components/ui/Modal';
-import { Button } from '@/components/ui/Button';
-import { ArrowLeft, CreditCard, Trash2, AlertTriangle } from 'lucide-react';
-import { useState } from 'react';
-import { useTheme } from '@/hooks/useTheme';
-import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom'
+import { Card } from '@/components/ui/Card'
+import { Modal } from '@/components/ui/Modal'
+import { Button } from '@/components/ui/Button'
+import { ArrowLeft, CreditCard, Trash2, AlertTriangle } from 'lucide-react'
+import { useState } from 'react'
+import { useTheme } from '@/hooks/useTheme'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function SettingsScreen() {
-  const navigate = useNavigate();
-  const { user } = useAuth();
-  const [notifications, setNotifications] = useState(true);
-  const { isDarkMode, setDarkMode } = useTheme();
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  
-  const isTrainer = user?.role === 'trainer' || user?.isTrainer;
+  const navigate = useNavigate()
+  const { user } = useAuth()
+  const [notifications, setNotifications] = useState(true)
+  const { isDarkMode, setDarkMode } = useTheme()
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  // const isTrainer = user?.role === 'trainer' || user?.isTrainer
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('es-AR', {
       day: '2-digit',
       month: 'long',
-      year: 'numeric'
-    }).format(new Date(date));
-  };
+      year: 'numeric',
+    }).format(new Date(date))
+  }
 
-  const subscription = user?.subscription;
+  const subscription = user?.subscription
 
   const handleDeleteAccount = async () => {
-    setIsDeleting(true);
+    setIsDeleting(true)
     try {
       // Aquí se enviaría la solicitud al backend para eliminar la cuenta
       // El backend enviaría un correo de confirmación
       // Por ahora simulamos la acción
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500))
 
       // Simulación: mostrar mensaje de éxito
-      alert('Se ha enviado un correo electrónico a tu cuenta para confirmar la eliminación. Por favor, revisa tu bandeja de entrada.');
-      setShowDeleteModal(false);
+      alert(
+        'Se ha enviado un correo electrónico a tu cuenta para confirmar la eliminación. Por favor, revisa tu bandeja de entrada.',
+      )
+      setShowDeleteModal(false)
     } catch (error) {
-      console.error('Error al solicitar eliminación de cuenta:', error);
-      alert('Hubo un error al procesar tu solicitud. Por favor, intenta nuevamente.');
+      console.error('Error al solicitar eliminación de cuenta:', error)
+      alert(
+        'Hubo un error al procesar tu solicitud. Por favor, intenta nuevamente.',
+      )
     } finally {
-      setIsDeleting(false);
+      setIsDeleting(false)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -59,8 +63,12 @@ export default function SettingsScreen() {
         <Card className="mb-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex-1">
-              <p className="text-foreground font-semibold mb-1">Notificaciones</p>
-              <p className="text-muted-foreground text-sm">Recibir notificaciones de entrenamientos</p>
+              <p className="text-foreground font-semibold mb-1">
+                Notificaciones
+              </p>
+              <p className="text-muted-foreground text-sm">
+                Recibir notificaciones de entrenamientos
+              </p>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
               <input
@@ -69,7 +77,10 @@ export default function SettingsScreen() {
                 onChange={(e) => setNotifications(e.target.checked)}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 border border-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary" style={{ backgroundColor: 'var(--muted)' }}></div>
+              <div
+                className="w-11 h-6 border border-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"
+                style={{ backgroundColor: 'var(--muted)' }}
+              ></div>
             </label>
           </div>
         </Card>
@@ -89,13 +100,16 @@ export default function SettingsScreen() {
                 onChange={(e) => setDarkMode(e.target.checked)}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 border border-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary" style={{ backgroundColor: 'var(--muted)' }}></div>
+              <div
+                className="w-11 h-6 border border-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"
+                style={{ backgroundColor: 'var(--muted)' }}
+              ></div>
             </label>
           </div>
         </Card>
 
         {/* Botón de Gestionar Suscripciones - Solo para clientes, no para entrenadores */}
-        {!isTrainer && (
+        {user?.role === 'user' && (
           <button
             onClick={() => navigate('/subscriptions')}
             className="w-full border border-border rounded-lg p-4 mb-4 hover:opacity-80 transition-colors flex items-center justify-between"
@@ -104,13 +118,20 @@ export default function SettingsScreen() {
             <div className="flex items-center">
               <CreditCard size={24} className="text-muted-foreground mr-4" />
               <div className="flex-1 text-left">
-                <span className="text-foreground font-semibold block">Gestionar Suscripciones</span>
+                <span className="text-foreground font-semibold block">
+                  Gestionar Suscripciones
+                </span>
                 {subscription && subscription.isActive ? (
                   <span className="text-muted-foreground text-xs">
-                    Plan {subscription.planId.charAt(0).toUpperCase() + subscription.planId.slice(1)} activo hasta {formatDate(subscription.endDate)}
+                    Plan{' '}
+                    {subscription.planId.charAt(0).toUpperCase() +
+                      subscription.planId.slice(1)}{' '}
+                    activo hasta {formatDate(subscription.endDate)}
                   </span>
                 ) : (
-                  <span className="text-muted-foreground text-xs">No tienes un plan activo</span>
+                  <span className="text-muted-foreground text-xs">
+                    No tienes un plan activo
+                  </span>
                 )}
               </div>
             </div>
@@ -155,14 +176,24 @@ export default function SettingsScreen() {
       >
         <div className="space-y-4">
           <div className="flex items-start space-x-3">
-            <AlertTriangle size={24} className="text-red-500 flex-shrink-0 mt-0.5" />
+            <AlertTriangle
+              size={24}
+              className="text-red-500 flex-shrink-0 mt-0.5"
+            />
             <div className="flex-1">
-              <p className="text-foreground font-semibold mb-2">¿Estás seguro de que deseas eliminar tu cuenta?</p>
+              <p className="text-foreground font-semibold mb-2">
+                ¿Estás seguro de que deseas eliminar tu cuenta?
+              </p>
               <p className="text-muted-foreground text-sm mb-2">
-                Esta acción es <strong className="text-foreground">irreversible</strong>. Al confirmar, se enviará un correo electrónico a <strong className="text-foreground">{user?.email}</strong> para que puedas terminar de confirmar o desistir de la eliminación.
+                Esta acción es{' '}
+                <strong className="text-foreground">irreversible</strong>. Al
+                confirmar, se enviará un correo electrónico a{' '}
+                <strong className="text-foreground">{user?.email}</strong> para
+                que puedas terminar de confirmar o desistir de la eliminación.
               </p>
               <p className="text-muted-foreground text-sm">
-                Si confirmas la eliminación, perderás acceso permanente a todos tus datos, rutinas, progreso y configuraciones.
+                Si confirmas la eliminación, perderás acceso permanente a todos
+                tus datos, rutinas, progreso y configuraciones.
               </p>
             </div>
           </div>
@@ -189,5 +220,5 @@ export default function SettingsScreen() {
         </div>
       </Modal>
     </div>
-  );
+  )
 }

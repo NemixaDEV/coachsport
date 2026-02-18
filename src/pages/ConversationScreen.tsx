@@ -1,103 +1,114 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { allUsers, messages } from '@/data/mockData';
-import { Button } from '@/components/ui/Button';
-import { ArrowLeft, Send } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom'
+import { useAuth } from '@/contexts/AuthContext'
+import { allUsers, messages } from '@/data/mockData'
+import { Button } from '@/components/ui/Button'
+import { ArrowLeft, Send } from 'lucide-react'
+import { useMemo, useState } from 'react'
 
 export default function ConversationScreen() {
-  const navigate = useNavigate();
-  const { userId } = useParams<{ userId: string }>();
-  const { user } = useAuth();
-  const [newMessage, setNewMessage] = useState('');
-  
+  const navigate = useNavigate()
+  const { userId } = useParams<{ userId: string }>()
+  const { user } = useAuth()
+  const [newMessage, setNewMessage] = useState('')
+
   // Obtener el otro usuario
-  const otherUser = useMemo(() => 
-    allUsers.find(u => u.id === userId),
-    [userId]
-  );
-  
+  const otherUser = useMemo(
+    () => allUsers.find((u) => u.id === userId),
+    [userId],
+  )
+
   // Obtener mensajes de esta conversación
   const conversationMessages = useMemo(() => {
-    if (!user || !userId) return [];
-    
+    if (!user || !userId) return []
+
     return messages
-      .filter(m => 
-        (m.fromId === user.id && m.toId === userId) ||
-        (m.fromId === userId && m.toId === user.id)
+      .filter(
+        (m) =>
+          (m.fromId === user.id && m.toId === userId) ||
+          (m.fromId === userId && m.toId === user.id),
       )
-      .sort((a, b) => 
-        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-      );
-  }, [user, userId]);
-  
+      .sort(
+        (a, b) =>
+          new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
+      )
+  }, [user, userId])
+
   const formatTime = (date: Date) => {
-    const messageDate = new Date(date);
-    return messageDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-  };
-  
+    const messageDate = new Date(date)
+    return messageDate.toLocaleTimeString('es-ES', {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  }
+
   const formatDate = (date: Date) => {
-    const messageDate = new Date(date);
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-    
+    const messageDate = new Date(date)
+    const today = new Date()
+    const yesterday = new Date(today)
+    yesterday.setDate(yesterday.getDate() - 1)
+
     if (messageDate.toDateString() === today.toDateString()) {
-      return 'Hoy';
+      return 'Hoy'
     } else if (messageDate.toDateString() === yesterday.toDateString()) {
-      return 'Ayer';
+      return 'Ayer'
     } else {
-      return messageDate.toLocaleDateString('es-ES', { 
-        day: 'numeric', 
+      return messageDate.toLocaleDateString('es-ES', {
+        day: 'numeric',
         month: 'long',
-        year: messageDate.getFullYear() !== today.getFullYear() ? 'numeric' : undefined
-      });
+        year:
+          messageDate.getFullYear() !== today.getFullYear()
+            ? 'numeric'
+            : undefined,
+      })
     }
-  };
-  
+  }
+
   const handleSendMessage = () => {
     if (newMessage.trim()) {
       // TODO: Implementar envío real de mensaje
-      console.log('Enviando mensaje:', newMessage);
-      setNewMessage('');
+      // console.log('Enviando mensaje:', newMessage);
+      setNewMessage('')
     }
-  };
-  
+  }
+
   // Agrupar mensajes por fecha
   const groupedMessages = useMemo(() => {
-    const groups: { date: string; messages: typeof conversationMessages }[] = [];
-    
-    conversationMessages.forEach(msg => {
-      const dateStr = formatDate(msg.timestamp);
-      const existingGroup = groups.find(g => g.date === dateStr);
-      
+    const groups: { date: string; messages: typeof conversationMessages }[] = []
+
+    conversationMessages.forEach((msg) => {
+      const dateStr = formatDate(msg.timestamp)
+      const existingGroup = groups.find((g) => g.date === dateStr)
+
       if (existingGroup) {
-        existingGroup.messages.push(msg);
+        existingGroup.messages.push(msg)
       } else {
-        groups.push({ date: dateStr, messages: [msg] });
+        groups.push({ date: dateStr, messages: [msg] })
       }
-    });
-    
-    return groups;
-  }, [conversationMessages]);
+    })
+
+    return groups
+  }, [conversationMessages])
 
   if (!otherUser) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-muted-foreground">Usuario no encontrado</p>
       </div>
-    );
+    )
   }
 
   return (
-    <div className="flex flex-col bg-background" style={{ height: 'calc(100vh - 80px)' }}>
+    <div
+      className="flex flex-col bg-background"
+      style={{ height: 'calc(100vh - 80px)' }}
+    >
       {/* Header - Fijo arriba */}
       <div className="bg-background pt-12 pb-4 px-6 border-b border-border flex-shrink-0 sticky top-0 z-20">
         <div className="flex items-center gap-4">
           <button onClick={() => navigate(-1)}>
             <ArrowLeft size={24} className="text-foreground" />
           </button>
-          
+
           <div className="flex items-center gap-3 flex-1">
             <div className="w-10 h-10 bg-gradient-to-br from-medium-jungle to-dark-jungle rounded-full flex items-center justify-center">
               <span className="text-white text-sm font-bold">
@@ -107,8 +118,8 @@ export default function ConversationScreen() {
             <div>
               <p className="text-foreground font-semibold">{otherUser.name}</p>
               <p className="text-muted-foreground text-xs">
-                {otherUser.role === 'trainer' || otherUser.isTrainer 
-                  ? 'Entrenador' 
+                {otherUser.role === 'admin' || otherUser.isTrainer
+                  ? 'Entrenador'
                   : 'Cliente'}
               </p>
             </div>
@@ -127,18 +138,20 @@ export default function ConversationScreen() {
                   {group.date}
                 </span>
               </div>
-              
+
               {/* Messages */}
               <div className="space-y-3">
                 {group.messages.map((message) => {
-                  const isCurrentUser = message.fromId === user?.id;
-                  
+                  const isCurrentUser = message.fromId === user?.id
+
                   return (
                     <div
                       key={message.id}
                       className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'}`}
                     >
-                      <div className={`max-w-[75%] ${isCurrentUser ? 'items-end' : 'items-start'}`}>
+                      <div
+                        className={`max-w-[75%] ${isCurrentUser ? 'items-end' : 'items-start'}`}
+                      >
                         <div
                           className={`rounded-2xl px-4 py-2 ${
                             isCurrentUser
@@ -146,7 +159,9 @@ export default function ConversationScreen() {
                               : 'bg-muted text-foreground'
                           }`}
                         >
-                          <p className="text-sm break-words">{message.content}</p>
+                          <p className="text-sm break-words">
+                            {message.content}
+                          </p>
                         </div>
                         <div className="px-2 mt-1">
                           <span className="text-xs text-muted-foreground">
@@ -155,7 +170,7 @@ export default function ConversationScreen() {
                         </div>
                       </div>
                     </div>
-                  );
+                  )
                 })}
               </div>
             </div>
@@ -189,8 +204,8 @@ export default function ConversationScreen() {
               rows={1}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSendMessage();
+                  e.preventDefault()
+                  handleSendMessage()
                 }
               }}
             />
@@ -208,5 +223,5 @@ export default function ConversationScreen() {
         </p>
       </div>
     </div>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { useSubscription } from '@/contexts/SubscriptionContext';
-import { images } from '@/constants/images';
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@/contexts/AuthContext'
+import { useSubscription } from '@/contexts/SubscriptionContext'
+import { images } from '@/constants/images'
 
 export default function SplashScreen() {
-  const navigate = useNavigate();
-  const { isAuthenticated, loading, user } = useAuth();
-  const { hasActiveSubscription } = useSubscription();
+  const navigate = useNavigate()
+  const { isAuthenticated, loading, user } = useAuth()
+  const { hasActiveSubscription } = useSubscription()
 
   useEffect(() => {
     if (!loading) {
@@ -15,26 +15,24 @@ export default function SplashScreen() {
         if (isAuthenticated && user) {
           // Redirigir según el rol
           if (user.role === 'admin') {
-            navigate('/admin');
-          } else if (user.role === 'trainer' || user.isTrainer) {
-            navigate('/trainer');
+            navigate('/admin')
           } else {
             // Si es cliente, verificar si tiene suscripción activa
             if (hasActiveSubscription) {
-              navigate('/home');
+              navigate('/home')
             } else {
               // Cliente sin suscripción activa, redirigir a perfil
-              navigate('/profile');
+              navigate('/profile')
             }
           }
         } else {
-          navigate('/login');
+          navigate('/login')
         }
-      }, 2000);
+      }, 2000)
 
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer)
     }
-  }, [loading, isAuthenticated, user, navigate]);
+  }, [loading, isAuthenticated, user, navigate])
 
   return (
     <div className="flex-1 bg-background flex items-center justify-center min-h-screen relative overflow-hidden">
@@ -45,7 +43,8 @@ export default function SplashScreen() {
       <div
         className="absolute inset-0 opacity-60"
         style={{
-          background: 'radial-gradient(circle at 30% 50%, rgba(255, 59, 48, 0.25) 0%, rgba(255, 59, 48, 0.1) 40%, transparent 70%)'
+          background:
+            'radial-gradient(circle at 30% 50%, rgba(255, 59, 48, 0.25) 0%, rgba(255, 59, 48, 0.1) 40%, transparent 70%)',
         }}
       />
 
@@ -56,7 +55,8 @@ export default function SplashScreen() {
       <div
         className="absolute top-0 right-0 w-96 h-96 blur-3xl opacity-30"
         style={{
-          background: 'radial-gradient(circle, rgba(255, 59, 48, 0.2) 0%, transparent 70%)'
+          background:
+            'radial-gradient(circle, rgba(255, 59, 48, 0.2) 0%, transparent 70%)',
         }}
       />
 
@@ -67,7 +67,9 @@ export default function SplashScreen() {
           alt="CoachSport Logo"
           className="mb-6 mx-auto max-w-xs drop-shadow-2xl"
         />
-        <p className="text-white text-base drop-shadow-lg">Tu entrenador personal</p>
+        <p className="text-white text-base drop-shadow-lg">
+          Tu entrenador personal
+        </p>
 
         {/* Loading profesional mientras se carga la app */}
         <div className="mt-10 flex flex-col items-center gap-3 w-full max-w-xs px-4">
@@ -80,5 +82,5 @@ export default function SplashScreen() {
         </div>
       </div>
     </div>
-  );
+  )
 }
