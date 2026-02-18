@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+// import { ChevronDown, ChevronUp } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { useAuth } from '@/contexts/AuthContext'
@@ -15,7 +15,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [showDemoCredentials, setShowDemoCredentials] = useState(false)
+  // const [showDemoCredentials, setShowDemoCredentials] = useState(false)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()

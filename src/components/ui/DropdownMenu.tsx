@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { cn } from '@/lib/utils'
-import { Edit, Trash2, Copy, MoreVertical } from 'lucide-react'
+import { Edit, Trash2, MoreVertical } from 'lucide-react'
 
 interface DropdownMenuProps {
   onEdit?: () => void

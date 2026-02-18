@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button'
 import {
   Settings,
   HelpCircle,
-  MessageSquare,
+  // MessageSquare,
   LogOut,
   Camera,
 } from 'lucide-react'
