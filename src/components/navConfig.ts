@@ -9,7 +9,7 @@ import {
   Settings,
 } from 'lucide-react'
 
-export type NavRole = 'admin' | 'user' | 'suscripto' | 'suscripto_full'
+export type NavRole = 'admin' | 'user' | 'suscriptor'
 
 export interface NavItem {
   path: string
@@ -32,37 +32,37 @@ export const NAV_ITEMS: NavItem[] = [
   // user / suscripto / suscripto_full
   {
     path: '/home',
-    roles: ['user', 'suscripto', 'suscripto_full'],
+    roles: ['user', 'suscriptor'],
     label: 'Inicio',
     icon: Home,
   },
   {
     path: '/routines',
-    roles: ['suscripto', 'suscripto_full'],
+    roles: ['suscriptor'],
     label: 'Rutinas',
     icon: Calendar,
   },
   {
     path: '/exercises',
-    roles: ['suscripto_full'],
+    roles: ['suscriptor'],
     label: 'Ejercicios',
     icon: Dumbbell,
   },
   {
     path: '/progress',
-    roles: ['suscripto_full'],
+    roles: ['suscriptor'],
     label: 'Progreso',
     icon: TrendingUp,
   },
   {
     path: '/profile',
-    roles: ['user', 'suscripto', 'suscripto_full'],
+    roles: ['user', 'suscriptor'],
     label: 'Perfil',
     icon: User,
   },
   {
     path: '/settings',
-    roles: ['user', 'suscripto', 'suscripto_full'],
+    roles: ['user', 'suscriptor'],
     label: 'Config',
     icon: Settings,
   },

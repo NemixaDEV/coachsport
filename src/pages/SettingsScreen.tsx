@@ -9,7 +9,7 @@ import { useAuth } from '@/contexts/AuthContext'
 
 export default function SettingsScreen() {
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, hasSubscription } = useAuth()
   const [notifications, setNotifications] = useState(true)
   const { isDarkMode, setDarkMode } = useTheme()
   const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -121,11 +121,11 @@ export default function SettingsScreen() {
                 <span className="text-foreground font-semibold block">
                   Gestionar Suscripciones
                 </span>
-                {subscription && subscription.isActive ? (
+                {hasSubscription && subscription ? (
                   <span className="text-muted-foreground text-xs">
                     Plan{' '}
-                    {subscription.planId.charAt(0).toUpperCase() +
-                      subscription.planId.slice(1)}{' '}
+                    {subscription.plan.charAt(0).toUpperCase() +
+                      subscription.plan.slice(1)}{' '}
                     activo hasta {formatDate(subscription.endDate)}
                   </span>
                 ) : (

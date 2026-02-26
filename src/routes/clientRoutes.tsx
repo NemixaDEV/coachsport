@@ -1,7 +1,18 @@
 import { lazy } from 'react'
-import { RouteObject } from 'react-router-dom'
+import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import Layout from '../components/Layout'
-import ProtectedRoute from '../components/ProtectedRoute'
+import { useAuth } from '@/contexts/AuthContext'
+
+function ClientGuard() {
+  const { loading, hasSubscription } = useAuth()
+  if (loading) return null
+  if (!hasSubscription) return <Navigate to="/login" replace />
+  return (
+    <Layout>
+      <Outlet />
+    </Layout>
+  )
+}
 
 const HomeScreen = lazy(() => import('../pages/client/HomeScreen'))
 const ExercisesScreen = lazy(() => import('../pages/client/ExercisesScreen'))
@@ -17,120 +28,54 @@ const WorkoutCompleteScreen = lazy(
   () => import('../pages/client/WorkoutCompleteScreen'),
 )
 const ProgressScreen = lazy(() => import('../pages/client/ProgressScreen'))
-const ProfileScreen = lazy(() => import('../pages/client/ProfileScreen'))
 const MessagesScreen = lazy(() => import('../pages/MessagesScreen'))
 const ConversationScreen = lazy(() => import('../pages/ConversationScreen'))
 
 export const clientRoutes: RouteObject[] = [
   {
-    path: '/home',
-    element: (
-      <Layout>
-        <ProtectedRoute>
-          <HomeScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
-  },
-  {
-    path: '/exercises',
-    element: (
-      <Layout>
-        <ProtectedRoute>
-          <ExercisesScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
-  },
-  {
-    path: '/exercise/:id',
-    element: (
-      <Layout>
-        <ProtectedRoute>
-          <ExerciseDetailScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
-  },
-  {
-    path: '/routines',
-    element: (
-      <Layout>
-        <ProtectedRoute>
-          <RoutinesScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
-  },
-  {
-    path: '/routine/:id',
-    element: (
-      <Layout>
-        <ProtectedRoute>
-          <RoutineDetailScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
-  },
-  {
-    path: '/workout/:id',
-    element: (
-      <Layout>
-        <ProtectedRoute>
-          <WorkoutScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
-  },
-  {
-    path: '/workout/:id/complete',
-    element: (
-      <Layout>
-        <ProtectedRoute>
-          <WorkoutCompleteScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
-  },
-  {
-    path: '/progress',
-    element: (
-      <Layout>
-        <ProtectedRoute>
-          <ProgressScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
-  },
-  {
-    path: '/messages',
-    element: (
-      <Layout>
-        <ProtectedRoute>
-          <MessagesScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
-  },
-  {
-    path: '/conversation/:userId',
-    element: (
-      <Layout>
-        <ProtectedRoute>
-          <ConversationScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
-  },
-  // Rutas sin requerir suscripción
-  {
-    path: '/profile',
-    element: (
-      <Layout>
-        <ProtectedRoute requireSubscription={false}>
-          <ProfileScreen />
-        </ProtectedRoute>
-      </Layout>
-    ),
+    element: <ClientGuard />,
+    children: [
+      {
+        path: '/home',
+        element: <HomeScreen />,
+      },
+      {
+        path: '/exercises',
+        element: <ExercisesScreen />,
+      },
+      {
+        path: '/exercise/:id',
+        element: <ExerciseDetailScreen />,
+      },
+      {
+        path: '/routines',
+        element: <RoutinesScreen />,
+      },
+
+      {
+        path: '/progress',
+        element: <ProgressScreen />,
+      },
+      {
+        path: '/routine/:id',
+        element: <RoutineDetailScreen />,
+      },
+      {
+        path: '/workout/:id',
+        element: <WorkoutScreen />,
+      },
+      {
+        path: '/workout/:id/complete',
+        element: <WorkoutCompleteScreen />,
+      },
+      {
+        path: '/messages',
+        element: <MessagesScreen />,
+      },
+      {
+        path: '/conversation/:userId',
+        element: <ConversationScreen />,
+      },
+    ],
   },
 ]

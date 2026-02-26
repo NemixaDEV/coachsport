@@ -11,10 +11,7 @@ export default function AdminDashboardScreen() {
 
   // const trainers = allUsers.filter((u) => u.role === 'trainer' || u.isTrainer)
   const clients = allUsers.filter(
-    (u) =>
-      u.role === 'user' ||
-      u.role === 'suscripto' ||
-      u.role === 'suscripto_full',
+    (u) => u.role === 'user' || u.role === 'suscriptor',
   )
   const allRoutines = routines
 

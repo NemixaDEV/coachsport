@@ -1,4 +1,14 @@
-export type UserRole = 'admin' | 'user' | 'suscripto' | 'suscripto_full'
+export interface AuthContextType {
+  user: User | null
+  loading: boolean
+  login: (email: string, password: string) => Promise<User | null>
+  logout: () => Promise<void>
+  register: (email: string, password: string, name: string) => Promise<void>
+  isAuthenticated: boolean
+  hasSubscription: boolean
+}
+
+export type UserRole = 'admin' | 'user' | 'suscriptor'
 export type Level = 'beginner' | 'intermediate' | 'advanced'
 export type ExerciseType = 'fuerza' | 'cardio' | 'flexibilidad' | 'movilidad'
 export type DayOfWeek =
@@ -31,11 +41,8 @@ export interface User {
   }
   trainerId?: string
   subscription?: {
-    planId: 'basic' | 'pro' | 'full'
     startDate: Date
     endDate: Date
-    isActive: boolean
-    autoRenew?: boolean
   }
   createdAt: Date
 }

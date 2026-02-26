@@ -36,12 +36,7 @@ export default function AdminClientsScreen() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [clientToDelete, setClientToDelete] = useState<User | null>(null)
   const [clients, setClients] = useState(
-    allUsers.filter(
-      (u) =>
-        u.role === 'user' ||
-        u.role === 'suscripto' ||
-        u.role === 'suscripto_full',
-    ),
+    allUsers.filter((u) => u.role === 'user' || u.role === 'suscriptor'),
   )
   // const trainers = allUsers.filter(u => u.role === 'trainer' || u.isTrainer);
 

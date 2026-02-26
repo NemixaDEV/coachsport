@@ -32,10 +32,7 @@ export default function LoginScreen() {
       if (user) {
         if (user.role === 'admin') {
           navigate('/admin')
-        } else if (
-          user.role === 'suscripto' ||
-          user.role === 'suscripto_full'
-        ) {
+        } else if (user.role === 'suscriptor') {
           navigate('/home')
         } else {
           // user (sin suscripción)
