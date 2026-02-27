@@ -48,7 +48,11 @@ export default function RegisterScreen() {
       await register(email, password, name)
       navigate('/profile-setup')
     } catch (err: any) {
-      setError(err.message || 'Error al registrar usuario')
+      if (err.code === 'auth/email-already-in-use') {
+        setError('Ya existe una cuenta con este email.')
+      } else {
+        setError(err.message || 'Error al registrar usuario')
+      }
     } finally {
       setLoading(false)
     }
@@ -74,46 +78,54 @@ export default function RegisterScreen() {
         </div>
 
         <form onSubmit={handleRegister} className="mb-6">
-          <Input
-            label="Nombre completo"
-            type="text"
-            placeholder="Juan Pérez"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            maxLength={100}
-          />
-          <Input
-            label="Email"
-            type="email"
-            placeholder="tu@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            maxLength={100}
-          />
-          <Input
-            label="Contraseña"
-            type="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            maxLength={50}
-          />
-          <Input
-            label="Confirmar contraseña"
-            type="password"
-            placeholder="••••••••"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            maxLength={50}
-          />
-          {error && <p className="text-cinnabar text-sm mb-4">{error}</p>}
-          <Button type="submit" loading={loading} className="w-full mb-4">
-            Registrarse
-          </Button>
+          <div>
+            <Input
+              label="Nombre completo"
+              type="text"
+              placeholder="Juan Pérez"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              maxLength={100}
+            />
+            <Input
+              label="Email"
+              type="email"
+              placeholder="tu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              maxLength={100}
+            />
+            <Input
+              label="Contraseña"
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              maxLength={50}
+            />
+            <Input
+              label="Confirmar contraseña"
+              type="password"
+              placeholder="••••••••"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              maxLength={50}
+            />
+          </div>
+          <div className="text-cinnabar text-sm min-h-[20px]">{error}</div>
+          <div className="p-4">
+            <Button
+              type="submit"
+              loading={loading}
+              className="w-full mb-4 mt-5"
+            >
+              Registrarse
+            </Button>
+          </div>
         </form>
 
         <div className="text-center">
