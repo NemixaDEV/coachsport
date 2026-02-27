@@ -12,19 +12,13 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from 'firebase/auth'
-import { doc, setDoc, getDoc } from 'firebase/firestore' // ← Esta línea
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 import { auth, db } from '@/config/firebase'
-import { User } from '@/types'
+import { AuthContextType, User } from '@/types'
 
-interface AuthContextType {
-  user: User | null
-  loading: boolean
-  login: (email: string, password: string) => Promise<User | null>
-  logout: () => Promise<void>
-  register: (email: string, password: string, name: string) => Promise<void>
-  isAuthenticated: boolean
+interface AuthProviderProps {
+  children: ReactNode
 }
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const useAuth = () => {
@@ -35,16 +29,12 @@ export const useAuth = () => {
   return context
 }
 
-interface AuthProviderProps {
-  children: ReactNode
-}
-
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
+  // ==== FIREBASE AUTH STATE CHANGE ====
   useEffect(() => {
-    // Escuchar cambios de autenticación en Firebase
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         const docSnap = await getDoc(doc(db, 'users', firebaseUser.uid))
@@ -56,6 +46,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             name: data.name || 'Usuario',
             role: data.role,
             createdAt: data.createdAt?.toDate() ?? new Date(),
+            subscription: data.subscription_start
+              ? {
+                  startDate: data.subscription_start.toDate(),
+                  endDate: data.subscription_end?.toDate() ?? new Date(),
+                }
+              : undefined,
           }
           setUser(userData)
           console.log('[AuthContext] Usuario autenticado:', userData)
@@ -67,9 +63,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }
       setLoading(false)
     })
-    // console.log('[AuthContext] Usuario autenticado:', user)
-
-    // Cleanup: dejar de escuchar cuando el componente se desmonte
     return () => unsubscribe()
   }, [])
 
@@ -91,6 +84,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         name: data.name || 'Usuario',
         role: data.role,
         createdAt: data.createdAt?.toDate() ?? new Date(),
+        subscription: data.subscription_start
+          ? {
+              startDate: data.subscription_start.toDate(),
+              endDate: data.subscription_end?.toDate() ?? new Date(),
+            }
+          : undefined,
       }
       setUser(userData)
       console.log('[AuthContext] Usuario logueado:', userData)
@@ -103,10 +102,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const logout = async (): Promise<void> => {
     try {
       await signOut(auth)
-      // console.log('✅ Usuario desconectado')
-      // El onAuthStateChanged automáticamente limpiará el estado
     } catch (error: any) {
-      console.error('❌ Error en logout:', error.message)
+      console.error('Error en logout:', error.message)
       throw error
     }
   }
@@ -117,27 +114,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     name: string,
   ): Promise<void> => {
     try {
-      // Crear usuario en Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password,
       )
       await updateProfile(userCredential.user, { displayName: name })
-
-      // Actualizar el perfil con el nombre
       await setDoc(doc(db, 'users', userCredential.user.uid), {
         email: email,
         name: name,
-        role: 'user', // ← El rol va como campo del documento
+        role: 'user',
         createdAt: new Date(),
+        subscription_plan: null,
+        subscription_start: null,
+        subscription_end: null,
       })
-
-      // console.log('✅ Usuario registrado:', userCredential.user.email)
-      // El onAuthStateChanged automáticamente actualizará el estado
     } catch (error: any) {
-      console.error('❌ Error en registro:', error.code, error.message)
-      throw error // Re-lanzar el error para que la UI lo maneje
+      console.error('Error en registro:', error.code, error.message)
+      throw error
     }
   }
 
@@ -148,6 +142,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     logout,
     register,
     isAuthenticated: !!user,
+    hasSubscription: ['suscriptor', 'admin'].includes(user?.role ?? ''),
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

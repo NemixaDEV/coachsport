@@ -48,11 +48,8 @@ export const client1: User = {
   },
   trainerId: '1',
   subscription: {
-    planId: 'basic',
     startDate: new Date('2024-10-01'),
     endDate: new Date('2025-11-01'), // Suscripción expirada
-    isActive: false, // No activa
-    autoRenew: false,
   },
   createdAt: new Date('2024-02-01'),
 }
@@ -76,11 +73,8 @@ export const client2: User = {
   },
   trainerId: '2',
   subscription: {
-    planId: 'pro',
     startDate: new Date('2025-01-01'), // Suscripción iniciada en enero 2025
     endDate: new Date('2026-12-31'), // Suscripción activa hasta diciembre 2026
-    isActive: true,
-    autoRenew: false, // NO recurrente
   },
   createdAt: new Date('2024-02-10'),
 }
@@ -104,11 +98,8 @@ export const client3: User = {
   },
   trainerId: '1',
   subscription: {
-    planId: 'full',
     startDate: new Date('2025-01-01'), // Suscripción iniciada en enero 2025
     endDate: new Date('2026-12-31'), // Suscripción activa hasta diciembre 2026
-    isActive: true,
-    autoRenew: true, // Recurrente
   },
   createdAt: new Date('2024-01-20'),
 }

@@ -1,13 +1,22 @@
 import { lazy } from 'react'
-import { RouteObject } from 'react-router-dom'
+import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import Layout from '../components/Layout'
+import { useAuth } from '@/contexts/AuthContext'
+
+function AdminGuard() {
+  const { user, loading } = useAuth()
+  if (loading) return null
+  if (user?.role !== 'admin') return <Navigate to="/home" replace />
+  return (
+    <Layout>
+      <Outlet />
+    </Layout>
+  )
+}
 
 const AdminDashboardScreen = lazy(
   () => import('../pages/admin/AdminDashboardScreen'),
 )
-// const AdminTrainersScreen = lazy(
-//   () => import('../pages/admin/AdminTrainersScreen'),
-// )
 const AdminClientsScreen = lazy(
   () => import('../pages/admin/AdminClientsScreen'),
 )
@@ -17,35 +26,20 @@ const AdminExercisesScreen = lazy(
 
 export const adminRoutes: RouteObject[] = [
   {
-    path: '/admin',
-    element: (
-      <Layout>
-        <AdminDashboardScreen />
-      </Layout>
-    ),
-  },
-  // {
-  //   path: '/admin/trainers',
-  //   element: (
-  //     <Layout>
-  //       <AdminTrainersScreen />
-  //     </Layout>
-  //   ),
-  // },
-  {
-    path: '/admin/clients',
-    element: (
-      <Layout>
-        <AdminClientsScreen />
-      </Layout>
-    ),
-  },
-  {
-    path: '/admin/exercises',
-    element: (
-      <Layout>
-        <AdminExercisesScreen />
-      </Layout>
-    ),
+    element: <AdminGuard />,
+    children: [
+      {
+        path: '/admin',
+        element: <AdminDashboardScreen />,
+      },
+      {
+        path: '/admin/clients',
+        element: <AdminClientsScreen />,
+      },
+      {
+        path: '/admin/exercises',
+        element: <AdminExercisesScreen />,
+      },
+    ],
   },
 ]

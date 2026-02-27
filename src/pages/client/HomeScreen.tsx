@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
-import { useSubscription } from '@/contexts/SubscriptionContext'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { routines, workouts } from '@/data/mockData'
@@ -11,10 +10,7 @@ import { format } from 'date-fns'
 export default function HomeScreen() {
   const navigate = useNavigate()
   const { user } = useAuth()
-  const { subscription } = useSubscription()
   const [showAllExercises, setShowAllExercises] = useState(false)
-
-  const isFullPlan = subscription?.planId === 'full'
 
   const activeRoutine = routines.find(
     (r) => r.clientId === user?.id && r.isActive,
@@ -128,14 +124,12 @@ export default function HomeScreen() {
             <h2 className="text-foreground text-lg font-semibold">
               Ejercicios Recientes
             </h2>
-            {isFullPlan && (
-              <button
-                onClick={() => navigate('/exercises')}
-                className="text-cinnabar text-sm hover:underline"
-              >
-                Ver todos
-              </button>
-            )}
+            <button
+              onClick={() => navigate('/exercises')}
+              className="text-cinnabar text-sm hover:underline"
+            >
+              Ver todos
+            </button>
           </div>
           {todayExercises &&
           todayExercises.exercises &&
@@ -179,38 +173,33 @@ export default function HomeScreen() {
             </p>
           )}
         </div>
-
-        {isFullPlan && (
-          <div className="mb-8">
-            <h2 className="text-foreground text-lg font-semibold mb-4">
-              Accesos Rápidos
-            </h2>
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                onClick={() => navigate('/exercises')}
-                className="border border-border rounded-lg p-4 text-left hover:opacity-80 transition-colors"
-                style={{ backgroundColor: 'var(--button-background)' }}
-              >
-                <Dumbbell size={24} className="text-cinnabar mb-2" />
-                <p className="text-foreground font-semibold">Biblioteca</p>
-                <p className="text-muted-foreground text-xs">
-                  Explora ejercicios
-                </p>
-              </button>
-              <button
-                onClick={() => navigate('/progress')}
-                className="border border-border rounded-lg p-4 text-left hover:opacity-80 transition-colors"
-                style={{ backgroundColor: 'var(--button-background)' }}
-              >
-                <TrendingUp size={24} className="text-medium-jungle mb-2" />
-                <p className="text-foreground font-semibold">Progreso</p>
-                <p className="text-muted-foreground text-xs">
-                  Ver estadísticas
-                </p>
-              </button>
-            </div>
+        <div className="mb-8">
+          <h2 className="text-foreground text-lg font-semibold mb-4">
+            Accesos Rápidos
+          </h2>
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              onClick={() => navigate('/exercises')}
+              className="border border-border rounded-lg p-4 text-left hover:opacity-80 transition-colors"
+              style={{ backgroundColor: 'var(--button-background)' }}
+            >
+              <Dumbbell size={24} className="text-cinnabar mb-2" />
+              <p className="text-foreground font-semibold">Biblioteca</p>
+              <p className="text-muted-foreground text-xs">
+                Explora ejercicios
+              </p>
+            </button>
+            <button
+              onClick={() => navigate('/progress')}
+              className="border border-border rounded-lg p-4 text-left hover:opacity-80 transition-colors"
+              style={{ backgroundColor: 'var(--button-background)' }}
+            >
+              <TrendingUp size={24} className="text-medium-jungle mb-2" />
+              <p className="text-foreground font-semibold">Progreso</p>
+              <p className="text-muted-foreground text-xs">Ver estadísticas</p>
+            </button>
           </div>
-        )}
+        </div>
       </div>
     </div>
   )

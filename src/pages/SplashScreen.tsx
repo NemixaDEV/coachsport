@@ -1,13 +1,12 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
-import { useSubscription } from '@/contexts/SubscriptionContext'
 import { images } from '@/constants/images'
 
 export default function SplashScreen() {
   const navigate = useNavigate()
-  const { isAuthenticated, loading, user } = useAuth()
-  const { hasActiveSubscription } = useSubscription()
+
+  const { isAuthenticated, loading, user, hasSubscription } = useAuth()
 
   useEffect(() => {
     if (!loading) {
@@ -18,7 +17,7 @@ export default function SplashScreen() {
             navigate('/admin')
           } else {
             // Si es cliente, verificar si tiene suscripción activa
-            if (hasActiveSubscription) {
+            if (hasSubscription) {
               navigate('/home')
             } else {
               // Cliente sin suscripción activa, redirigir a perfil
