@@ -1,181 +1,110 @@
-# CoachSport - Aplicación Web para Testing
+# CoachSport.
 
-Aplicación web responsive para gestión de entrenamientos de calistenia, construida con React, TypeScript, Vite y TailwindCSS.
+**Funcionalidades Principal**
 
-## 🚀 Características
+- Auth: Registro, Login y Logout con Firebase.
+- Roles: Niveles de acceso para Admin y Cliente.
+- Membresías: Diferenciación entre Usuario Free y Premium (Pago).
+- Entrenamiento, Biblioteca, Progreso, Gestión, Persistencia.
 
-- **Autenticación completa**: Login, registro y configuración de perfil
-- **Biblioteca de ejercicios**: Catálogo completo con videos, descripciones y variaciones
-- **Rutinas personalizadas**: Creación y seguimiento de rutinas de entrenamiento
-- **Seguimiento de progreso**: Estadísticas, gráficas e historial de entrenamientos
-- **Panel del entrenador**: Gestión de clientes y creación de rutinas
-- **Panel de administración**: Gestión completa de usuarios, entrenadores y ejercicios
-- **Diseño responsive**: Optimizado para móvil, tablet y desktop
+**Suscripciones**
 
-## 📱 Pantallas Implementadas
+- (Stripe / Mercado Pago)
 
-### Cliente
-- ✅ Splash Screen
-- ✅ Login / Registro
-- ✅ Configuración de perfil
-- ✅ Inicio (Home)
-- ✅ Biblioteca de ejercicios
-- ✅ Detalle de ejercicio
-- ✅ Rutinas
-- ✅ Detalle de rutina
-- ✅ Entrenamiento activo
-- ✅ Completado de entrenamiento
-- ✅ Progreso y estadísticas
-- ✅ Perfil
-- ✅ Configuración
-- ✅ Ayuda y soporte
-- ✅ Mensajes
+  **Deploy**
 
-### Entrenador
-- ✅ Dashboard del entrenador
-- ✅ Lista de clientes
-- ✅ Detalle de cliente
-- ✅ Editor de rutinas
+- Vercel
 
-### Administrador
-- ✅ Dashboard de administración
-- ✅ Gestión de entrenadores
-- ✅ Gestión de clientes
-- ✅ Gestión de ejercicios
+# Metodología: Vibe Coding & Refactor
 
-## 🛠️ Stack Tecnológico
+El desarrollo se divide en dos fases:
 
-- **React 18** con **TypeScript**
-- **Vite** como bundler y herramienta de desarrollo
-- **React Router DOM** para navegación
-- **TailwindCSS** para estilos y diseño responsive
-- **Lucide React** para iconos
-- **date-fns** para manejo de fechas
-- **clsx** y **tailwind-merge** para gestión de clases CSS
+- Fase Vibe (UI/UX): Generación masiva de componentes, layouts y flujos visuales utilizando prompts de IA. Objetivo: llegar al MVP visual en tiempo récord.
 
-## 📦 Instalación
+- Fase de Adaptación (Coding):
+  - Tipado: Sustituir los any generados por interfaces de TypeScript reales.
+  - Data Binding: Conectar los componentes "vibe-coded" con Firestore y Firebase Auth y eliminar todo lo de localStorage que se uso para un Mockup/Demo.
+  - Lógica de Pagos: Implementar manualmente el flujo de Stripe/Mercado Pago y Webhooks en Vercel para asegurar la integridad de las transacciones.
+  - Seguridad: Escribir las Firestore Rules para proteger los datos que la IA dejó abiertos por defecto(Vamos a validar desde el front y desde el back).
 
-1. Instalar dependencias:
+# Proceso
+
+## Para crear un proyecto nuevo en PNPM.
+
 ```bash
+    pnpm create next-app@latest . --typescript
+```
+
+Para usar un gestor distinto a **pnpm**:
+
+- **pnpm:** `pnpm create next-app@latest . --typescript`
+- **npm:** `npx create-next-app@latest . --typescript`
+- **yarn:** `yarn create next-app . --typescript`
+- **bun:** `bun create next-app@latest . --typescript`
+
+## Instalar dependencias.
+
+Para instalar los paquetes necesarios:
+
+```bash
+# Con pnpm
+pnpm install
+
+# Con npm
 npm install
+
+# Con yarn
+yarn install
 ```
 
-2. Iniciar servidor de desarrollo:
+## Correr proyecto.
+
+| Acción         | pnpm         | npm             | yarn         |
+| :------------- | :----------- | :-------------- | :----------- |
+| **Desarrollo** | `pnpm dev`   | `npm run dev`   | `yarn dev`   |
+| **Build**      | `pnpm build` | `npm run build` | `yarn build` |
+| **Producción** | `pnpm start` | `npm run start` | `yarn start` |
+
+## Stack
+
+- React, TypeScript, TailwindCSS
+
+## Auth y DB
+
+Para el Auth y Base de datos vamos a utilizar Firebase y Firestore.
+
+[GOOGLE FIREBASE](https://firebase.google.com/)
+
+- Firebase y Firestore Database.
+
+### Instalar Firebase
+
+Desde la terminal del proyecto:
+
 ```bash
-npm run dev
+pnpm add firebase
 ```
 
-3. Construir para producción:
+Con esto ya podemos configurar el Auth utilizando lo que nos da la consola de Firebase.
+
+Luego para reglas de validacion basicas en la base de datos vamos a usar **Rules** en Firestore, pero esto no va a ser suficiente ya que podemos validar lo minimo, vamos a necesitar **Cloud Functions**
+
+Para esto lo instalamos de la siguiente manera desde la terminal:
+
 ```bash
-npm run build
+pnpm add -g firebase-tools
 ```
 
-4. Preview de producción:
+Cuando intentamos instalar tuvimos un pequeño error con pnpm:
+
 ```bash
-npm run preview
+ ERR_PNPM_NO_GLOBAL_BIN_DIR  Unable to find the global bin directory
 ```
 
-## 🎨 Diseño
+Para solucionarlo usamos:
 
-La aplicación sigue la guía de diseño de CoachSport:
-- **Colores**: 
-  - Azul petróleo (#002B36) - Color primario
-  - Rojo energía (#FF3B30) - Color secundario
-  - Verde progreso (#4CAF50) - Acento positivo
-  - Gris grafito (#2E2E2E) - Neutral oscuro
-  - Gris titanio (#A7B0B5) - Neutral claro
-- **Tipografía**: Inter (Regular, Medium, SemiBold, Bold)
-- **Temas**: Modo oscuro por defecto, con soporte para modo claro
-- **Responsive**: Mobile-first design
-- **Path Aliases**: Se utiliza `@/` para importaciones desde `src/`
-
-## 👥 Usuarios de Prueba
-
-### Administrador / Entrenador
-- Email: `admin@coachsport.dev`
-- Password: (cualquiera)
-
-### Entrenador
-- Email: `trainer@coachsport.dev`
-- Password: (cualquiera)
-
-### Clientes
-- Email: `cliente1@coachsport.dev`
-- Email: `cliente2@coachsport.dev`
-- Email: `cliente3@coachsport.dev`
-- Password: (cualquiera)
-
-## 📂 Estructura del Proyecto
-
-```
-src/
-  components/
-    ui/              # Componentes reutilizables (Button, Card, Input, Tab)
-    Layout.tsx       # Layout principal con navegación
-  screens/
-    auth/            # Pantallas de autenticación
-    client/          # Pantallas del cliente
-    trainer/         # Pantallas del entrenador
-    admin/           # Pantallas del administrador
-  data/
-    mockData.ts      # Datos mock para simulación
-  types/
-    index.ts         # Definiciones de tipos TypeScript
-  hooks/
-    useAuth.ts       # Hook de autenticación
-    useTheme.ts      # Hook para gestión de temas (claro/oscuro)
-  lib/
-    utils.ts         # Utilidades (cn para clases CSS)
-  constants/
-    images.ts        # Exportación de imágenes de la aplicación
-  assets/
-    images/          # Imágenes estáticas
+```bash
+pnpm setup
 ```
 
-## 🎯 Funcionalidades Mock
-
-Todas las funcionalidades están implementadas con datos mock:
-- Usuarios predefinidos (admin, entrenadores, clientes)
-- Biblioteca de ejercicios completa
-- Rutinas de ejemplo
-- Historial de entrenamientos
-- Progreso simulado
-
-## 📝 Notas
-
-- Esta es una aplicación de UI/UX sin backend real
-- Todos los datos son mock y se guardan en localStorage
-- La navegación está completamente funcional
-- Los componentes siguen el sistema de diseño de CoachSport
-- Diseño responsive para todos los dispositivos
-- El tema (claro/oscuro) se persiste en localStorage
-- Se utiliza TypeScript con configuración estricta
-- Path aliases configurados (`@/` apunta a `src/`)
-
-## 🚧 Próximos Pasos
-
-Para convertir esto en una aplicación funcional:
-1. Integrar backend real (API REST o GraphQL)
-2. Implementar almacenamiento persistente (localStorage mejorado o base de datos)
-3. Añadir autenticación real (Firebase, Auth0, etc.)
-4. Integrar sistema de notificaciones
-5. Añadir reproducción de videos reales
-6. Implementar sistema de mensajería en tiempo real
-
-## 🌐 Desarrollo
-
-La aplicación está optimizada para:
-- **Móvil**: Navegación inferior, diseño touch-friendly
-- **Tablet**: Layout adaptativo
-- **Desktop**: Experiencia completa con más espacio
-
-## 🔧 Scripts Disponibles
-
-- `npm run dev` - Inicia el servidor de desarrollo
-- `npm run build` - Construye la aplicación para producción
-- `npm run preview` - Previsualiza el build de producción
-- `npm run lint` - Ejecuta el linter de ESLint
-
-## 📄 Licencia
-
-Este proyecto es privado.
+Luego cerramos e iniciamos terminal nuevamente para asegurar que tome las variables de entorno, y volvemos a ejecutar `pnpm add -g firebase-tools`
