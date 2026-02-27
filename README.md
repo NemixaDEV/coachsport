@@ -11,7 +11,7 @@
 
 - (Stripe / Mercado Pago)
 
-  **Deploy**
+**Deploy**
 
 - Vercel
 
