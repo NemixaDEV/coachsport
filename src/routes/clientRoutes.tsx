@@ -14,7 +14,6 @@ function ClientGuard() {
   )
 }
 
-const HomeScreen = lazy(() => import('../pages/client/HomeScreen'))
 const ExercisesScreen = lazy(() => import('../pages/client/ExercisesScreen'))
 const ExerciseDetailScreen = lazy(
   () => import('../pages/client/ExerciseDetailScreen'),
@@ -35,10 +34,6 @@ export const clientRoutes: RouteObject[] = [
   {
     element: <ClientGuard />,
     children: [
-      {
-        path: '/home',
-        element: <HomeScreen />,
-      },
       {
         path: '/exercises',
         element: <ExercisesScreen />,
