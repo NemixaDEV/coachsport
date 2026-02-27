@@ -17,14 +17,6 @@ export default function SettingsScreen() {
 
   // const isTrainer = user?.role === 'trainer' || user?.isTrainer
 
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat('es-AR', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    }).format(new Date(date))
-  }
-
   const subscription = user?.subscription
 
   const handleDeleteAccount = async () => {
