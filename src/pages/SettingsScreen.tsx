@@ -123,10 +123,10 @@ export default function SettingsScreen() {
                 </span>
                 {hasSubscription && subscription ? (
                   <span className="text-muted-foreground text-xs">
-                    Plan{' '}
+                    {/* Plan{' '}
                     {subscription.plan.charAt(0).toUpperCase() +
                       subscription.plan.slice(1)}{' '}
-                    activo hasta {formatDate(subscription.endDate)}
+                    activo hasta {formatDate(subscription.endDate)} */}
                   </span>
                 ) : (
                   <span className="text-muted-foreground text-xs">
