@@ -42,7 +42,7 @@ Para usar un gestor distinto a **pnpm**:
 - **yarn:** `yarn create next-app . --typescript`
 - **bun:** `bun create next-app@latest . --typescript`
 
-## Instalar dependencias.
+## Integrando dependencias.
 
 Para instalar los paquetes necesarios:
 
@@ -77,7 +77,9 @@ Para el Auth y Base de datos vamos a utilizar Firebase y Firestore.
 
 - Firebase y Firestore Database.
 
-### Instalar Firebase
+### Integrar Firebase
+
+Implementamos Firebase en una fase exploratoria para medir su impacto en el flujo de desarrollo. Más allá de la instalación, buscamos identificar de primera mano sus fortalezas y debilidades asegurándonos de que la elección de esta tecnología sea una decisión técnica fundamentada y no solo una alternativa de conveniencia.
 
 Desde la terminal del proyecto:
 
@@ -87,15 +89,17 @@ pnpm add firebase
 
 Con esto ya podemos configurar el Auth utilizando lo que nos da la consola de Firebase.
 
-Luego para reglas de validacion basicas en la base de datos vamos a usar **Rules** en Firestore, pero esto no va a ser suficiente ya que podemos validar lo minimo, vamos a necesitar **Cloud Functions**
+Luego para reglas de validacion basicas en la base de datos vamos a usar **Rules** en Firestore, pero esto no va a ser suficiente ya que podemos validar lo minimo, vamos a necesitar **Cloud Functions** vamos a instalar el CLI.
 
-Para esto lo instalamos de la siguiente manera desde la terminal:
+Para esto lo implementamos de la siguiente manera desde la terminal:
 
 ```bash
 pnpm add -g firebase-tools
 ```
 
-Cuando intentamos instalar tuvimos un pequeño error con pnpm:
+**Notas**
+
+Cuando intentamos implementar tuvimos un pequeño error con pnpm:
 
 ```bash
  ERR_PNPM_NO_GLOBAL_BIN_DIR  Unable to find the global bin directory
@@ -108,3 +112,22 @@ pnpm setup
 ```
 
 Luego cerramos e iniciamos terminal nuevamente para asegurar que tome las variables de entorno, y volvemos a ejecutar `pnpm add -g firebase-tools`
+
+**Notas**
+
+Si llegamos a tener un problema de sessiones cruzadas cuando queremos loguear desde el CLI, solucion `firebase login --no-localhost` para que nos de un link manual.
+
+Seguimos el link, y en algun momento no pedira reauth `firebase login --reauth`
+
+**Init Functions**
+
+```bash
+firebase init functions
+```
+
+Asociamos a nuestros proyectos, en este caso tenemos dos.
+
+- El projecto que va a estar en Prod con su base de datos.
+- El projecto que va a estar en Dev/Local con su base datos.
+
+Comenzamos integrandolo al Local, luego deployamos el functions en el proyecto de Prod una vez que lo tengamos listo y funcionando en Local.
