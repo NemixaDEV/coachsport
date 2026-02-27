@@ -21,11 +21,16 @@ const HelpScreen = lazy(() => import('../pages/HelpScreen'))
 const PrivacyScreen = lazy(() => import('../pages/PrivacyScreen'))
 const ProfileScreen = lazy(() => import('../pages/client/ProfileScreen'))
 const AboutScreen = lazy(() => import('../pages/AboutScreen'))
+const HomeScreen = lazy(() => import('../pages/client/HomeScreen'))
 
 export const commonRoutes: RouteObject[] = [
   {
     element: <AuthGuard />,
     children: [
+      {
+        path: '/home',
+        element: <HomeScreen />,
+      },
       {
         path: '/subscriptions',
         element: <SubscriptionScreen />,
