@@ -19,7 +19,7 @@ export default function RegisterScreen() {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name.trim() || !email.trim() || !password || !confirmPassword) {
       setError('Por favor completa todos los campos')
       return
     }
@@ -29,8 +29,15 @@ export default function RegisterScreen() {
       return
     }
 
-    if (password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres')
+    const passwordErrors: string[] = []
+    if (password.length < 8) passwordErrors.push('Mínimo 8 caracteres')
+    if (!/[A-Z]/.test(password)) passwordErrors.push('Al menos una mayúscula')
+    if (!/[a-z]/.test(password)) passwordErrors.push('Al menos una minúscula')
+    if (!/[0-9]/.test(password)) passwordErrors.push('Al menos un número')
+    if (!/[!@#$%^&*]/.test(password))
+      passwordErrors.push('Al menos un símbolo (!@#$%^&*)')
+    if (passwordErrors.length > 0) {
+      setError(passwordErrors.join(', '))
       return
     }
 
@@ -38,11 +45,10 @@ export default function RegisterScreen() {
     setError('')
 
     try {
-      const user = await register(email, password, name)
-      localStorage.setItem('user', JSON.stringify(user))
+      await register(email, password, name)
       navigate('/profile-setup')
-    } catch (err) {
-      setError('Error al registrar usuario')
+    } catch (err: any) {
+      setError(err.message || 'Error al registrar usuario')
     } finally {
       setLoading(false)
     }
@@ -75,6 +81,7 @@ export default function RegisterScreen() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            maxLength={100}
           />
           <Input
             label="Email"
@@ -83,6 +90,7 @@ export default function RegisterScreen() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            maxLength={100}
           />
           <Input
             label="Contraseña"
@@ -91,6 +99,7 @@ export default function RegisterScreen() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            maxLength={50}
           />
           <Input
             label="Confirmar contraseña"
@@ -99,6 +108,7 @@ export default function RegisterScreen() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            maxLength={50}
           />
           {error && <p className="text-cinnabar text-sm mb-4">{error}</p>}
           <Button type="submit" loading={loading} className="w-full mb-4">
