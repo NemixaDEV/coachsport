@@ -1,6 +1,6 @@
 # CoachSport.
 
-**Funcionalidades Principal**
+**Funcionalidades Principales**
 
 - Auth: Registro, Login y Logout con Firebase.
 - Roles: Niveles de acceso para Admin y Cliente.
