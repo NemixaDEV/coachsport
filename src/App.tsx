@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { useRoutes } from 'react-router-dom'
 import { useAuth } from './contexts/AuthContext'
 import { routes } from './routes'
-import SplashScreen from './pages/SplashScreen'
+import SplashScreen from './pages/common/SplashScreen'
 
 function App() {
   const { loading } = useAuth()
@@ -12,7 +12,7 @@ function App() {
     return <SplashScreen />
   }
 
-  return <Suspense fallback={<SplashScreen />}>{element}</Suspense>
+  return <Suspense fallback={null}>{element}</Suspense>
 }
 
 export default App

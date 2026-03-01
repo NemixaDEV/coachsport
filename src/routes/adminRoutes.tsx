@@ -1,18 +1,6 @@
 import { lazy } from 'react'
-import { Navigate, Outlet, RouteObject } from 'react-router-dom'
-import Layout from '../components/Layout'
-import { useAuth } from '@/contexts/AuthContext'
-
-function AdminGuard() {
-  const { user, loading } = useAuth()
-  if (loading) return null
-  if (user?.role !== 'admin') return <Navigate to="/home" replace />
-  return (
-    <Layout>
-      <Outlet />
-    </Layout>
-  )
-}
+import { RouteObject } from 'react-router-dom'
+import { AdminGuard } from './guards/AdminGuard'
 
 const AdminDashboardScreen = lazy(
   () => import('../pages/admin/AdminDashboardScreen'),

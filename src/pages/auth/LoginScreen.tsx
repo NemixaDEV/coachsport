@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-// import { ChevronDown, ChevronUp } from 'lucide-react'
+import { useNavigate, Link, Navigate } from 'react-router-dom'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { useAuth } from '@/contexts/AuthContext'
@@ -9,13 +8,16 @@ import { images } from '@/constants/images'
 
 export default function LoginScreen() {
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { login, isAuthenticated } = useAuth()
   const { isDarkMode } = useTheme()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  // const [showDemoCredentials, setShowDemoCredentials] = useState(false)
+
+  if (isAuthenticated) {
+    return <Navigate to="/home" replace />
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
