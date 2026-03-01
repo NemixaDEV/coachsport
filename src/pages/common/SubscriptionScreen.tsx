@@ -27,17 +27,17 @@ export default function SubscriptionScreen() {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
 
   const plans: SubscriptionPlan[] = [
-    {
-      id: 'user',
-      name: 'Plan Iniciado',
-      price: 0,
-      description: 'Para los que estan comenzando su viaje fitness',
-      features: [
-        'Unite a mi red de usuarios de email para enterarte de las ultimas noticias',
-        'Plan de entrenamiento basico para que todos estemos saludables',
-      ],
-      icon: <Zap size={24} className="text-foreground" />,
-    },
+    // {
+    //   id: 'user',
+    //   name: 'Plan Iniciado',
+    //   price: 0,
+    //   description: 'Para los que estan comenzando su viaje fitness',
+    //   features: [
+    //     'Unite a mi red de usuarios de email para enterarte de las ultimas noticias',
+    //     'Plan de entrenamiento basico para que todos estemos saludables',
+    //   ],
+    //   icon: <Zap size={24} className="text-foreground" />,
+    // },
     {
       id: 'suscripto',
       name: 'Equipo Leo',
@@ -156,8 +156,9 @@ export default function SubscriptionScreen() {
           <div className="space-y-4">
             {plans.map((plan) => {
               const isSelected = selectedPlan === plan.id
-              const isCurrentPlan =
-                hasSubscription ? plan.id === 'suscripto' : plan.id === 'user'
+              const isCurrentPlan = hasSubscription
+                ? plan.id === 'suscripto'
+                : plan.id === 'user'
 
               const cardBorder = isSelected
                 ? 'border-cinnabar bg-cinnabar/10'
