@@ -2,14 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import {
-  ArrowLeft,
-  CreditCard,
-  Check,
-  Crown,
-  Zap,
-  Calendar,
-} from 'lucide-react'
+import { ArrowLeft, CreditCard, Check, Crown, Calendar } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 interface SubscriptionPlan {
   id: string
