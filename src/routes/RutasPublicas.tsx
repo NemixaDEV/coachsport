@@ -11,7 +11,7 @@ const ForgotPasswordScreen = lazy(
 )
 const ContactScreen = lazy(() => import('../pages/auth/ContactScreen'))
 
-export const authRoutes: RouteObject[] = [
+export const RutasPublicas: RouteObject[] = [
   {
     path: '/login',
     element: <LoginScreen />,

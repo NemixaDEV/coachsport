@@ -332,10 +332,10 @@ export default function AdminClientsScreen() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-foreground text-2xl font-bold">
-              Gestionar Clientes
+              Gestionar Suscriptos
             </h1>
             <p className="text-muted-foreground mt-2">
-              {clients.length} clientes
+              {clients.length} suscriptos
             </p>
           </div>
           <Button size="sm" onClick={() => setIsModalOpen(true)}>

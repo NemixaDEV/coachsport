@@ -5,8 +5,9 @@ import {
   Calendar,
   TrendingUp,
   User,
-  Users,
+  // Users,
   Settings,
+  // LayoutDashboard,
 } from 'lucide-react'
 
 export type NavRole = 'admin' | 'user' | 'suscriptor'
@@ -21,36 +22,36 @@ export interface NavItem {
 // Footer Menu
 export const NAV_ITEMS: NavItem[] = [
   // admin
-  { path: '/admin', roles: ['admin'], label: 'Inicio', icon: Home },
-  { path: '/admin/clients', roles: ['admin'], label: 'Clientes', icon: Users },
-  {
-    path: '/admin/exercises',
-    roles: ['admin'],
-    label: 'Ejercicios',
-    icon: Dumbbell,
-  },
-  // user / suscripto
+  // { path: '/admin', roles: ['admin'], label: 'Inicio', icon: LayoutDashboard },
+  // { path: '/admin/clients', roles: ['admin'], label: 'Clientes', icon: Users },
+  // {
+  //   path: '/admin/exercises',
+  //   roles: ['admin'],
+  //   label: 'Ejercicios',
+  //   icon: Dumbbell,
+  // },
   {
     path: '/home',
-    roles: ['user', 'suscriptor'],
+    roles: ['user', 'suscriptor', 'admin'],
     label: 'Inicio',
     icon: Home,
   },
+  // user / suscripto
   {
     path: '/routines',
-    roles: ['user', 'suscriptor'],
+    roles: ['user', 'suscriptor', 'admin'],
     label: 'Rutinas',
     icon: Calendar,
   },
   {
     path: '/exercises',
-    roles: ['user', 'suscriptor'],
+    roles: ['user', 'suscriptor', 'admin'],
     label: 'Ejercicios',
     icon: Dumbbell,
   },
   {
     path: '/progress',
-    roles: ['user', 'suscriptor'],
+    roles: ['user', 'suscriptor', 'admin'],
     label: 'Progreso',
     icon: TrendingUp,
   },

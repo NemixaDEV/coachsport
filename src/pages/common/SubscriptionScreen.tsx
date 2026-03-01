@@ -2,14 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import {
-  ArrowLeft,
-  CreditCard,
-  Check,
-  Crown,
-  Zap,
-  Calendar,
-} from 'lucide-react'
+import { ArrowLeft, CreditCard, Check, Crown, Calendar } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 interface SubscriptionPlan {
   id: string
@@ -27,21 +20,21 @@ export default function SubscriptionScreen() {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
 
   const plans: SubscriptionPlan[] = [
-    {
-      id: 'user',
-      name: 'Plan Iniciado',
-      price: 0,
-      description: 'Para los que estan comenzando su viaje fitness',
-      features: [
-        'Unite a mi red de usuarios de email para enterarte de las ultimas noticias',
-        'Plan de entrenamiento basico para que todos estemos saludables',
-      ],
-      icon: <Zap size={24} className="text-foreground" />,
-    },
+    // {
+    //   id: 'user',
+    //   name: 'Plan Iniciado',
+    //   price: 0,
+    //   description: 'Para los que estan comenzando su viaje fitness',
+    //   features: [
+    //     'Unite a mi red de usuarios de email para enterarte de las ultimas noticias',
+    //     'Plan de entrenamiento basico para que todos estemos saludables',
+    //   ],
+    //   icon: <Zap size={24} className="text-foreground" />,
+    // },
     {
       id: 'suscripto',
       name: 'Equipo Leo',
-      price: 30000,
+      price: 40000,
       description: 'Experiencia completa y premium',
       features: [
         'Todo lo del plan iniciado',
@@ -156,8 +149,9 @@ export default function SubscriptionScreen() {
           <div className="space-y-4">
             {plans.map((plan) => {
               const isSelected = selectedPlan === plan.id
-              const isCurrentPlan =
-                hasSubscription ? plan.id === 'suscripto' : plan.id === 'user'
+              const isCurrentPlan = hasSubscription
+                ? plan.id === 'suscripto'
+                : plan.id === 'user'
 
               const cardBorder = isSelected
                 ? 'border-cinnabar bg-cinnabar/10'

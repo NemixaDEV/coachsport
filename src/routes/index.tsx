@@ -1,19 +1,19 @@
 import { Navigate, RouteObject } from 'react-router-dom'
 import InitialRedirect from '../pages/common/InitialRedirect'
-import { authRoutes } from './authRoutes'
-import { clientRoutes } from './clientRoutes'
-import { adminRoutes } from './adminRoutes'
-import { commonRoutes } from './commonRoutes'
+import { RutasPublicas } from './RutasPublicas'
+import { RutasSuscriptor } from './RutasSuscriptor'
+import { RutasAdmin } from './RutasAdmin'
+import { RutasProtegidas } from './RutasProtegidas'
 
 export const routes: RouteObject[] = [
   {
     path: '/',
     element: <InitialRedirect />,
   },
-  ...authRoutes,
-  ...clientRoutes,
-  ...adminRoutes,
-  ...commonRoutes,
+  ...RutasPublicas,
+  ...RutasSuscriptor,
+  ...RutasAdmin,
+  ...RutasProtegidas,
   {
     path: '*',
     element: <Navigate to="/" replace />,

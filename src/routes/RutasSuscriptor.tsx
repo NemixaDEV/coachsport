@@ -7,7 +7,7 @@ const ConversationScreen = lazy(
   () => import('../pages/common/ConversationScreen'),
 )
 
-export const clientRoutes: RouteObject[] = [
+export const RutasSuscriptor: RouteObject[] = [
   {
     element: <ClientGuard />,
     children: [
