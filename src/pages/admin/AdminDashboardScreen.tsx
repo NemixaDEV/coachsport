@@ -3,7 +3,6 @@ import { useAuth } from '@/contexts/AuthContext'
 import { allUsers, routines } from '@/data/mockData'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import { User } from 'lucide-react'
 
 export default function AdminDashboardScreen() {
   const navigate = useNavigate()
@@ -25,13 +24,6 @@ export default function AdminDashboardScreen() {
             </p>
             <h1 className="text-foreground text-2xl font-bold">{user?.name}</h1>
           </div>
-          <button
-            onClick={() => navigate('/profile')}
-            className="w-12 h-12 border border-border rounded-full flex items-center justify-center hover:opacity-80 transition-colors"
-            style={{ backgroundColor: 'var(--button-background)' }}
-          >
-            <User size={24} className="text-foreground" />
-          </button>
         </div>
       </div>
 

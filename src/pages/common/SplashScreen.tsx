@@ -1,38 +1,6 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '@/contexts/AuthContext'
 import { images } from '@/constants/images'
 
 export default function SplashScreen() {
-  const navigate = useNavigate()
-
-  const { isAuthenticated, loading, user, hasSubscription } = useAuth()
-
-  useEffect(() => {
-    if (!loading) {
-      const timer = setTimeout(() => {
-        if (isAuthenticated && user) {
-          // Redirigir según el rol
-          if (user.role === 'admin') {
-            navigate('/admin')
-          } else {
-            // Si es cliente, verificar si tiene suscripción activa
-            if (hasSubscription) {
-              navigate('/home')
-            } else {
-              // Cliente sin suscripción activa, redirigir a perfil
-              navigate('/profile')
-            }
-          }
-        } else {
-          navigate('/login')
-        }
-      }, 2000)
-
-      return () => clearTimeout(timer)
-    }
-  }, [loading, isAuthenticated, user, navigate])
-
   return (
     <div className="flex-1 bg-background flex items-center justify-center min-h-screen relative overflow-hidden">
       {/* Capa base con degradado principal - azul oscuro a más oscuro */}

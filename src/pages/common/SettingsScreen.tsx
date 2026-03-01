@@ -10,7 +10,6 @@ import { useAuth } from '@/contexts/AuthContext'
 export default function SettingsScreen() {
   const navigate = useNavigate()
   const { user, hasSubscription } = useAuth()
-  const [notifications, setNotifications] = useState(true)
   const { isDarkMode, setDarkMode } = useTheme()
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -52,7 +51,7 @@ export default function SettingsScreen() {
       </div>
 
       <div className="px-6 pb-6">
-        <Card className="mb-4">
+        {/* <Card className="mb-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex-1">
               <p className="text-foreground font-semibold mb-1">
@@ -75,7 +74,7 @@ export default function SettingsScreen() {
               ></div>
             </label>
           </div>
-        </Card>
+        </Card> */}
 
         <Card className="mb-4">
           <div className="flex items-center justify-between">

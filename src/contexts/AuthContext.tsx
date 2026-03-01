@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
               : undefined,
           }
           setUser(userData)
-          console.log('[AuthContext] Usuario autenticado:', userData)
+          // console.log('[AuthContext] Usuario autenticado:', userData)
         } else {
           setUser(null)
         }
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           : undefined,
       }
       setUser(userData)
-      console.log('[AuthContext] Usuario logueado:', userData)
+      // console.log('[AuthContext] Usuario logueado:', userData)
       return userData
     }
     setUser(null)

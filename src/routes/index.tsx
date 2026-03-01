@@ -1,5 +1,5 @@
 import { Navigate, RouteObject } from 'react-router-dom'
-import SplashScreen from '../pages/SplashScreen'
+import InitialRedirect from '../pages/common/InitialRedirect'
 import { authRoutes } from './authRoutes'
 import { clientRoutes } from './clientRoutes'
 import { adminRoutes } from './adminRoutes'
@@ -8,7 +8,7 @@ import { commonRoutes } from './commonRoutes'
 export const routes: RouteObject[] = [
   {
     path: '/',
-    element: <SplashScreen />,
+    element: <InitialRedirect />,
   },
   ...authRoutes,
   ...clientRoutes,
@@ -16,6 +16,6 @@ export const routes: RouteObject[] = [
   ...commonRoutes,
   {
     path: '*',
-    element: <Navigate to="/home" replace />,
+    element: <Navigate to="/" replace />,
   },
 ]

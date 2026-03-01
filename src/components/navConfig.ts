@@ -18,8 +18,9 @@ export interface NavItem {
   icon: LucideIcon
 }
 
+// Footer Menu
 export const NAV_ITEMS: NavItem[] = [
-  // Admin
+  // admin
   { path: '/admin', roles: ['admin'], label: 'Inicio', icon: Home },
   { path: '/admin/clients', roles: ['admin'], label: 'Clientes', icon: Users },
   {
@@ -28,8 +29,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Ejercicios',
     icon: Dumbbell,
   },
-  { path: '/settings', roles: ['admin'], label: 'Config', icon: Settings },
-  // user / suscripto / suscripto_full
+  // user / suscripto
   {
     path: '/home',
     roles: ['user', 'suscriptor'],
@@ -38,31 +38,31 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     path: '/routines',
-    roles: ['suscriptor'],
+    roles: ['user', 'suscriptor'],
     label: 'Rutinas',
     icon: Calendar,
   },
   {
     path: '/exercises',
-    roles: ['suscriptor'],
+    roles: ['user', 'suscriptor'],
     label: 'Ejercicios',
     icon: Dumbbell,
   },
   {
     path: '/progress',
-    roles: ['suscriptor'],
+    roles: ['user', 'suscriptor'],
     label: 'Progreso',
     icon: TrendingUp,
   },
   {
     path: '/profile',
-    roles: ['user', 'suscriptor'],
+    roles: ['user', 'suscriptor', 'admin'],
     label: 'Perfil',
     icon: User,
   },
   {
     path: '/settings',
-    roles: ['user', 'suscriptor'],
+    roles: ['user', 'suscriptor', 'admin'],
     label: 'Config',
     icon: Settings,
   },
