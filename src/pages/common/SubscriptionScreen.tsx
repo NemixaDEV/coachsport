@@ -41,7 +41,7 @@ export default function SubscriptionScreen() {
     {
       id: 'suscripto',
       name: 'Equipo Leo',
-      price: 30000,
+      price: 40000,
       description: 'Experiencia completa y premium',
       features: [
         'Todo lo del plan iniciado',
