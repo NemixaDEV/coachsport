@@ -3,7 +3,6 @@ import { useAuth } from '@/contexts/AuthContext'
 import { allUsers, routines } from '@/data/mockData'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import { User } from 'lucide-react'
 
 export default function AdminDashboardScreen() {
   const navigate = useNavigate()

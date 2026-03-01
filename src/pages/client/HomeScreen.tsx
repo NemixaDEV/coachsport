@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { routines, workouts } from '@/data/mockData'
-import { Bell, Dumbbell, TrendingUp } from 'lucide-react'
+import { Dumbbell, TrendingUp } from 'lucide-react'
 import { format } from 'date-fns'
 
 export default function HomeScreen() {
@@ -47,13 +47,6 @@ export default function HomeScreen() {
             </p>
             <h1 className="text-foreground text-2xl font-bold">{user?.name}</h1>
           </div>
-          <button
-            onClick={() => navigate('/messages')}
-            className="w-12 h-12 border border-border rounded-full flex items-center justify-center hover:opacity-80 transition-colors"
-            style={{ backgroundColor: 'var(--button-background)' }}
-          >
-            <Bell size={24} className="text-foreground" />
-          </button>
         </div>
       </div>
 

@@ -10,7 +10,6 @@ import { useAuth } from '@/contexts/AuthContext'
 export default function SettingsScreen() {
   const navigate = useNavigate()
   const { user, hasSubscription } = useAuth()
-  const [notifications, setNotifications] = useState(true)
   const { isDarkMode, setDarkMode } = useTheme()
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
