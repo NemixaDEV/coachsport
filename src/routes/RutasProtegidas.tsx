@@ -25,7 +25,7 @@ const WorkoutCompleteScreen = lazy(
 )
 const ProgressScreen = lazy(() => import('../pages/client/ProgressScreen'))
 
-export const commonRoutes: RouteObject[] = [
+export const RutasProtegidas: RouteObject[] = [
   {
     element: <AuthGuard />,
     children: [

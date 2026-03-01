@@ -4,7 +4,6 @@ import { useAuth } from '@/contexts/AuthContext'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import {
-  Settings,
   HelpCircle,
   // MessageSquare,
   LogOut,
@@ -159,18 +158,6 @@ export default function ProfileScreen() {
 
       <div className="px-6 mb-6">
         <button
-          onClick={() => navigate('/settings')}
-          className="w-full border border-border rounded-lg p-4 flex items-center justify-between mb-3 hover:opacity-80 transition-colors"
-          style={{ backgroundColor: 'var(--button-background)' }}
-        >
-          <div className="flex items-center">
-            <Settings size={24} className="text-muted-foreground mr-4" />
-            <span className="text-foreground">Configuración</span>
-          </div>
-          <span className="text-muted-foreground">›</span>
-        </button>
-
-        <button
           onClick={() => navigate('/help')}
           className="w-full border border-border rounded-lg p-4 flex items-center justify-between mb-3 hover:opacity-80 transition-colors"
           style={{ backgroundColor: 'var(--button-background)' }}
@@ -181,17 +168,6 @@ export default function ProfileScreen() {
           </div>
           <span className="text-muted-foreground">›</span>
         </button>
-
-        {/* <button
-          onClick={() => navigate('/messages')}
-          className="w-full bg-muted rounded-lg p-4 flex items-center justify-between hover:bg-muted/80 transition-colors"
-        >
-          <div className="flex items-center">
-            <MessageSquare size={24} className="text-muted-foreground mr-4" />
-            <span className="text-foreground">Mensajes</span>
-          </div>
-          <span className="text-muted-foreground">›</span>
-        </button> */}
       </div>
 
       <div className="px-6 mb-8">

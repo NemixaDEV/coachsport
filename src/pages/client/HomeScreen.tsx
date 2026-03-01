@@ -1,44 +1,26 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { Card } from '@/components/ui/Card'
+import { Dumbbell, TrendingUp, Pencil } from 'lucide-react'
+import { useAdminView } from '@/contexts/AdminViewContext'
 import { Button } from '@/components/ui/Button'
-import { routines, workouts } from '@/data/mockData'
-import { Dumbbell, TrendingUp } from 'lucide-react'
-import { format } from 'date-fns'
 
 export default function HomeScreen() {
   const navigate = useNavigate()
   const { user } = useAuth()
-  const [showAllExercises, setShowAllExercises] = useState(false)
+  const { viewMode } = useAdminView()
 
-  const activeRoutine = routines.find(
-    (r) => r.clientId === user?.id && r.isActive,
-  )
-  const todayWorkout = workouts.find(
-    (w) =>
-      w.clientId === user?.id &&
-      format(w.date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd'),
-  )
-
-  const getTodayDay = () => {
-    const days = [
-      'domingo',
-      'lunes',
-      'martes',
-      'miércoles',
-      'jueves',
-      'viernes',
-      'sábado',
-    ]
-    return days[new Date().getDay()]
-  }
-
-  const todayDay = getTodayDay()
-  const todayExercises = activeRoutine?.days.find((d) => d.day === todayDay)
+  const SHORTS = [
+    { id: 'pOPpa09aKuc?si=DSTbxDpbnUMFnIJE', title: 'Sentadillas correctas' },
+    { id: 'Qz7vx5hZkUA?si=lfpbfQrzy0K8e-_F', title: 'Core challenge' },
+    { id: 'qFBcn2QiGUQ?si=E5BSxPRk1tiUSg_s', title: 'Core challenge' },
+    { id: 'IUe-AyhQ4QE?si=Xgo8Sj03ZpOAHFfY', title: 'Core challenge' },
+    { id: '/I-ocDR-pipI?si=ojBmNgmNx-8rtSAH', title: 'Arrancando un dia' },
+    { id: 't86Rh_6gKPk?si=HBkDvs2jyOdxnzKE', title: 'Juanetes Separados' },
+  ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       <div className="bg-background pt-12 pb-6 px-6">
         <div className="flex justify-between items-center mb-4">
           <div>
@@ -51,54 +33,35 @@ export default function HomeScreen() {
       </div>
 
       <div className="px-6 pb-6">
-        {activeRoutine && todayExercises && (
-          <Card className="mb-6">
-            <div className="flex justify-between items-center mb-4">
+        <div className="mt-5">
+          <h2 className="text-foreground text-lg font-semibold">
+            La Frase del Día
+          </h2>
+          <div className="mt-2">
+            <div>
               <div>
-                <p className="text-muted-foreground text-sm mb-1">
-                  Rutina del día
-                </p>
-                <h2 className="text-foreground text-xl font-bold">
-                  {activeRoutine.name}
-                </h2>
-                <p className="text-muted-foreground text-xs mt-1">
-                  {todayExercises.exercises.length} ejercicios
-                </p>
+                {' '}
+                <Card>
+                  <p className="text-foreground text-2xl font-bold">
+                    El éxito es la suma de pequeños esfuerzos repetidos día tras
+                    día.
+                  </p>
+                </Card>
               </div>
-              <div className="w-16 h-16 bg-cinnabar/20 rounded-full flex items-center justify-center">
-                <Dumbbell size={32} className="text-cinnabar" />
+              <div className="flex justify-end">
+                {user?.role === 'admin' && viewMode === 'admin' && (
+                  <Button size="sm" className="mt-2">
+                    <Pencil size={24} />
+                  </Button>
+                )}
               </div>
             </div>
+          </div>
+        </div>
 
-            {!todayWorkout ? (
-              <Button
-                onClick={() => navigate(`/workout/${activeRoutine.id}`)}
-                className="w-full"
-              >
-                Iniciar Entrenamiento
-              </Button>
-            ) : (
-              <div>
-                <p className="text-medium-jungle text-sm mb-2">
-                  ✓ Entrenamiento completado hoy
-                </p>
-                <Button
-                  variant="secondary"
-                  onClick={() => navigate(`/workout/${activeRoutine.id}`)}
-                  className="w-full"
-                >
-                  Ver Detalles
-                </Button>
-              </div>
-            )}
-          </Card>
-        )}
-
-        <div className="mb-6">
-          <h2 className="text-foreground text-lg font-semibold mb-4">
-            Esta Semana
-          </h2>
-          <div className="grid grid-cols-2 gap-4">
+        <div className="mt-5">
+          <h2 className="text-foreground text-lg font-semibold">Esta Semana</h2>
+          <div className="grid grid-cols-2 gap-4 mt-2">
             <Card>
               <p className="text-muted-foreground text-xs mb-1">
                 Entrenamientos
@@ -112,65 +75,11 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-foreground text-lg font-semibold">
-              Ejercicios Recientes
-            </h2>
-            <button
-              onClick={() => navigate('/exercises')}
-              className="text-cinnabar text-sm hover:underline"
-            >
-              Ver todos
-            </button>
-          </div>
-          {todayExercises &&
-          todayExercises.exercises &&
-          todayExercises.exercises.length > 0 ? (
-            <>
-              <div
-                className={`flex gap-4 ${showAllExercises ? 'flex-wrap' : ''}`}
-              >
-                {(showAllExercises
-                  ? todayExercises.exercises
-                  : todayExercises.exercises.slice(0, 2)
-                ).map((ex, idx) => (
-                  <Card
-                    key={idx}
-                    className={
-                      showAllExercises ? 'flex-1 min-w-[12rem]' : 'flex-1'
-                    }
-                  >
-                    <p className="text-foreground font-semibold mb-1">
-                      Ejercicio {idx + 1}
-                    </p>
-                    <p className="text-muted-foreground text-xs">
-                      {ex.sets} series × {ex.reps || `${ex.duration}s`}
-                    </p>
-                  </Card>
-                ))}
-              </div>
-              {todayExercises.exercises.length > 2 && (
-                <Button
-                  variant="secondary"
-                  onClick={() => setShowAllExercises(!showAllExercises)}
-                  className="w-full mt-4"
-                >
-                  {showAllExercises ? 'Mostrar menos' : 'Mostrar el resto'}
-                </Button>
-              )}
-            </>
-          ) : (
-            <p className="text-muted-foreground text-sm">
-              No hay ejercicios disponibles
-            </p>
-          )}
-        </div>
-        <div className="mb-8">
-          <h2 className="text-foreground text-lg font-semibold mb-4">
+        <div className="mt-5">
+          <h2 className="text-foreground text-lg font-semibold">
             Accesos Rápidos
           </h2>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 mt-2">
             <button
               onClick={() => navigate('/exercises')}
               className="border border-border rounded-lg p-4 text-left hover:opacity-80 transition-colors"
@@ -191,6 +100,90 @@ export default function HomeScreen() {
               <p className="text-foreground font-semibold">Progreso</p>
               <p className="text-muted-foreground text-xs">Ver estadísticas</p>
             </button>
+          </div>
+        </div>
+
+        <div className="mt-5">
+          <h2 className="text-foreground text-lg font-semibold">
+            Equipo Leo Últimos Entrenamientos
+          </h2>
+          <div className="mt-2">
+            <Card>
+              <div className="text-foreground">
+                Motivate como yo. Segui mis entrenamientos y entrenate conmigo.
+                Juntos vamos a lograr tus objetivos.
+              </div>
+              <div className="mt-5">
+                <h2 className="text-foreground text-lg font-semibold mb-2">
+                  Video del Coach
+                </h2>
+                <div
+                  className="relative w-full rounded-xl overflow-hidden"
+                  style={{ paddingBottom: '56.25%' }}
+                >
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/QhYKHUqgGbI?si=fuHADfP3Hz94BSxR`}
+                    title="Empezar de Cero"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end">
+                {user?.role === 'admin' && viewMode === 'admin' && (
+                  <Button size="sm" className="mt-2">
+                    <Pencil size={24} />
+                  </Button>
+                )}
+              </div>
+            </Card>
+          </div>
+        </div>
+
+        <div className="mt-5">
+          <h2 className="text-foreground text-lg font-semibold">Shorts</h2>
+          <div className="mt-2">
+            <Card>
+              <div className="text-foreground">
+                Unite al canal de shorts para ver videos cortos con tips,
+                ejercicios y motivación diaria.
+              </div>
+              <div className="mt-5">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">
+                  {SHORTS.map((short) => (
+                    <div key={short.id}>
+                      <div
+                        className="relative w-full rounded-xl overflow-hidden cursor-pointer"
+                        style={{ paddingBottom: '177.78%' }}
+                        onClick={() =>
+                          window.open(
+                            `https://www.youtube.com/shorts/${short.id}`,
+                            '_blank',
+                          )
+                        }
+                      >
+                        <iframe
+                          className="absolute inset-0 w-full h-full"
+                          src={`https://www.youtube.com/embed/${short.id}`}
+                          title={short.title || 'Short'}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                        <div className="absolute inset-0" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="flex justify-end">
+                {user?.role === 'admin' && viewMode === 'admin' && (
+                  <Button size="sm" className="mt-2">
+                    <Pencil size={24} />
+                  </Button>
+                )}
+              </div>
+            </Card>
           </div>
         </div>
       </div>

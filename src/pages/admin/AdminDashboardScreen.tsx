@@ -30,19 +30,13 @@ export default function AdminDashboardScreen() {
       <div className="px-6 mb-6">
         <div className="grid grid-cols-2 gap-4">
           <Card>
-            <p className="text-muted-foreground text-xs mb-1">Total Usuarios</p>
+            <p className="text-muted-foreground text-xs mb-1">Usuarios</p>
             <p className="text-foreground text-3xl font-bold">
               {allUsers.length}
             </p>
           </Card>
-          {/* <Card>
-            <p className="text-muted-foreground text-xs mb-1">Entrenadores</p>
-            <p className="text-foreground text-3xl font-bold">
-              {trainers.length}
-            </p>
-          </Card> */}
           <Card>
-            <p className="text-muted-foreground text-xs mb-1">Clientes</p>
+            <p className="text-muted-foreground text-xs mb-1">Suscriptos</p>
             <p className="text-foreground text-3xl font-bold">
               {clients.length}
             </p>
@@ -57,18 +51,12 @@ export default function AdminDashboardScreen() {
       </div>
 
       <div className="px-6 mb-6">
-        {/* <Button
-          onClick={() => navigate('/admin/trainers')}
-          className="w-full mb-3"
-        >
-          Gestionar Entrenadores
-        </Button> */}
         <Button
           variant="secondary"
           onClick={() => navigate('/admin/clients')}
           className="w-full mb-3"
         >
-          Gestionar Clientes
+          Gestionar Suscriptos
         </Button>
         <Button
           variant="outline"

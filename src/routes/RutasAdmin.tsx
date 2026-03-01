@@ -12,7 +12,7 @@ const AdminExercisesScreen = lazy(
   () => import('../pages/admin/AdminExercisesScreen'),
 )
 
-export const adminRoutes: RouteObject[] = [
+export const RutasAdmin: RouteObject[] = [
   {
     element: <AdminGuard />,
     children: [
