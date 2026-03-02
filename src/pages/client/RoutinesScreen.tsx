@@ -1,16 +1,33 @@
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { routines } from '@/data/mockData';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Calendar, Check } from 'lucide-react';
-import { format } from 'date-fns';
+import { useAuth } from '@/contexts/AuthContext'
+import { useAdminView } from '@/contexts/AdminViewContext'
+import { ClipboardList, Lock } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
 
 export default function RoutinesScreen() {
-  const navigate = useNavigate();
-  const { user } = useAuth();
-  
-  const userRoutines = routines.filter(r => r.clientId === user?.id);
+  const { user } = useAuth()
+  const { viewMode } = useAdminView()
+
+  const effectiveRole = user?.role === 'admin' ? viewMode : user?.role
+  const canAccessPremium =
+    effectiveRole === 'suscriptor' || effectiveRole === 'admin'
+
+  const ROUTINES = [
+    {
+      id: 1,
+      name: 'Rutina Inicial Full Body',
+      premium: false,
+    },
+    {
+      id: 2,
+      name: 'Hipertrofia Avanzada',
+      premium: true,
+    },
+    {
+      id: 3,
+      name: 'Core & Funcional Pro',
+      premium: true,
+    },
+  ]
 
   return (
     <div className="min-h-screen bg-background">
@@ -19,66 +36,50 @@ export default function RoutinesScreen() {
         <p className="text-muted-foreground">Gestiona tus entrenamientos</p>
       </div>
 
-      {userRoutines.find(r => r.isActive) && (
-        <div className="px-6 mb-6">
-          <Card className="bg-cinnabar/20 border-2 border-cinnabar">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex-1">
-                <p className="text-muted-foreground text-xs mb-1">Rutina Activa</p>
-                <h2 className="text-foreground text-xl font-bold">
-                  {userRoutines.find(r => r.isActive)?.name}
-                </h2>
-              </div>
-              <div className="w-12 h-12 bg-cinnabar rounded-full flex items-center justify-center">
-                <Check size={24} className="text-foreground" />
-              </div>
-            </div>
-            <Button
-              variant="primary"
-              onClick={() => navigate(`/routine/${userRoutines.find(r => r.isActive)?.id}`)}
-              className="w-full"
-            >
-              Ver Detalles
-            </Button>
-          </Card>
-        </div>
-      )}
+      <div className="px-6 space-y-4">
+        {ROUTINES.map((routine) => {
+          const isLocked = !canAccessPremium && routine.premium
 
-      <div className="px-6 mb-6">
-        <h2 className="text-foreground text-lg font-semibold mb-4">Todas las Rutinas</h2>
-        {userRoutines.map(routine => (
-          <Card
-            key={routine.id}
-            onClick={() => navigate(`/routine/${routine.id}`)}
-            className="mb-4 cursor-pointer hover:opacity-80 transition-colors border border-border"
-            style={{ backgroundColor: 'var(--card-background)' }}
-          >
-            <div className="flex justify-between items-start">
-              <div className="flex-1">
-                <div className="flex items-center mb-2">
-                  <h3 className="text-foreground text-lg font-semibold mr-2">{routine.name}</h3>
-                  {routine.isActive && (
-                    <span className="bg-medium-jungle px-2 py-1 rounded text-xs text-foreground">
-                      Activa
-                    </span>
-                  )}
+          return (
+            <div key={routine.id} className="relative">
+              <div
+                className={`p-5 rounded-xl border border-border bg-muted/30 transition ${
+                  isLocked
+                    ? 'opacity-50 pointer-events-none'
+                    : 'hover:bg-muted/50'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <ClipboardList size={24} className="text-primary mr-3" />
+                    <div>
+                      <p className="text-foreground font-semibold">
+                        {routine.name}
+                      </p>
+                      {routine.premium && (
+                        <p className="text-xs text-muted-foreground">
+                          Solo suscriptores
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <Button size="sm">Ver rutina</Button>
                 </div>
-                <p className="text-muted-foreground text-sm mb-3">{routine.description}</p>
-                <div className="flex items-center">
-                  <Calendar size={16} className="text-muted-foreground mr-1" />
-                  <span className="text-muted-foreground text-xs">
-                    {routine.days.length} días por semana
-                  </span>
-                </div>
-                <p className="text-muted-foreground text-xs mt-1">
-                  Creada el {format(routine.createdAt, 'dd/MM/yyyy')}
-                </p>
               </div>
-              <span className="text-muted-foreground ml-4">›</span>
+
+              {isLocked && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-xl">
+                  <div className="flex items-center text-white font-semibold">
+                    <Lock size={18} className="mr-2" />
+                    Solo para suscriptores
+                  </div>
+                </div>
+              )}
             </div>
-          </Card>
-        ))}
+          )
+        })}
       </div>
     </div>
-  );
+  )
 }
