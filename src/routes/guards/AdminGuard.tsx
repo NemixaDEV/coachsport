@@ -6,7 +6,7 @@ import { AdminViewSwitcher } from '@/components/AdminViewSwitcher'
 export function AdminGuard() {
   const { user, loading } = useAuth()
   if (loading) return null
-  if (user?.role === 'admin') return <Navigate to="/home" replace />
+  if (user?.role !== 'admin') return <Navigate to="/home" replace />
   return (
     <Layout>
       <AdminViewSwitcher />

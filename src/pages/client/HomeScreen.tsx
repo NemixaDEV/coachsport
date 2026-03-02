@@ -212,7 +212,7 @@ export default function HomeScreen() {
 
                         {isLocked && (
                           <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-xl">
-                            <span className="text-white font-semibold">
+                            <span className="text-white text-center font-semibold">
                               Solo para suscriptores
                             </span>
                           </div>
