@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 const MODOS: { key: ViewMode; label: string }[] = [
   { key: 'admin', label: 'Admin' },
-  { key: 'usuario', label: 'Usuario' },
+  { key: 'user', label: 'Usuario' },
   { key: 'suscriptor', label: 'Suscriptor' },
 ]
 

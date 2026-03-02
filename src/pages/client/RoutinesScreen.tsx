@@ -64,7 +64,9 @@ export default function RoutinesScreen() {
                     </div>
                   </div>
 
-                  <Button size="sm">Ver rutina</Button>
+                  <Button className="ml-3" size="sm">
+                    Ver
+                  </Button>
                 </div>
               </div>
 
