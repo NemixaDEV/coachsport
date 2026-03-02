@@ -123,15 +123,67 @@ Si llegamos a tener un problema de sessiones cruzadas cuando queremos loguear de
 
 Seguimos el link, y en algun momento no pedira reauth `firebase login --reauth`
 
-**Init Functions**
+Te lo corrijo manteniendo tu estilo y estructura 👇
+
+---
+
+## Init Functions
 
 ```bash
 firebase init functions
 ```
 
-Asociamos a nuestros proyectos, en este caso tenemos dos.
+Asociamos nuestros proyectos; en este caso tenemos dos:
 
-- El projecto que va a estar en Prod con su base de datos.
-- El projecto que va a estar en Dev/Local con su base datos.
+- El proyecto que va a estar en **Prod**, con su base de datos.
+- El proyecto que va a estar en **Dev/Local**, con su base de datos.
 
-Comenzamos integrandolo al Local, luego deployamos el functions en el proyecto de Prod una vez que lo tengamos listo y funcionando en Local.
+Comenzamos integrándolo al entorno local. Luego deployamos las Functions en el proyecto de **Prod** una vez que lo tengamos listo y funcionando correctamente en **Local**.
+
+---
+
+## Blaze
+
+Para poder probar toda la funcionalidad de Cloud Functions hay que suscribirse al plan **Blaze**.
+Por ahora esto no es necesario, pero dejamos todo listo para una implementación futura.
+
+---
+
+## Vercel
+
+Creamos una cuenta en Vercel y la conectamos al repositorio en GitHub.
+La configuramos para usar dos ramas (_branches_): una de **dev** y otra llamada **master**.
+
+Todos los cambios que hacemos en nuestro entorno local los pusheamos a **dev**. Estos son detectados automáticamente por Vercel y desplegados en el entorno de desarrollo.
+
+Luego, de forma manual, hacemos un **PR** desde `dev` hacia `master`, lo que actualiza **PROD** cuando estamos seguros de que todo funciona correctamente en **Dev** y ha sido apropiadamente testeado.
+
+---
+
+## Notas
+
+Pequeño error que encontramos: hemos usado Vercel anteriormente con **Next.js** sin problemas, pero con **React** aparece un pequeño error de DNS cuando hacemos _reload_ en la página y esta se pierde.
+
+La solución es sencilla.
+
+En el root del proyecto creamos un archivo llamado `vercel.json`:
+
+```json
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
+```
+
+## Roadmap
+
+- [ ] Pulir UI y detalles visuales
+- [ ] Mejorar filtros y UI de la biblioteca de ejercicios
+- [ ] Simplificar los visualizadores de ejercicios
+- [ ] Optimizar la carga y gestión de ejercicios desde el panel de admin
+- [ ] Terminar de estructurar bien las rutinas
+- [ ] Ordenar y normalizar los datos de usuario
+- [ ] Armar formulario de contacto (público y usuarios logueados)
+- [ ] Completar y estructurar correctamente la base de datos
+- [ ] Implementar tests con Vitest
+- [ ] Revisar seguridad (roles y reglas de Firestore)
+- [ ] Implementar pasarela de pagos (Stripe / MercadoPago según país del usuario)

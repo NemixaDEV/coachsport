@@ -6,17 +6,17 @@ import { ArrowLeft, CreditCard, Trash2, AlertTriangle } from 'lucide-react'
 import { useState } from 'react'
 import { useTheme } from '@/hooks/useTheme'
 import { useAuth } from '@/contexts/AuthContext'
+import { useAdminView } from '@/contexts/AdminViewContext'
 
 export default function SettingsScreen() {
   const navigate = useNavigate()
-  const { user, hasSubscription } = useAuth()
+  const { user } = useAuth()
   const { isDarkMode, setDarkMode } = useTheme()
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
+  const { viewMode } = useAdminView()
 
-  // const isTrainer = user?.role === 'trainer' || user?.isTrainer
-
-  const subscription = user?.subscription
+  const effectiveRole = user?.role === 'admin' ? viewMode : user?.role
 
   const handleDeleteAccount = async () => {
     setIsDeleting(true)
@@ -51,31 +51,6 @@ export default function SettingsScreen() {
       </div>
 
       <div className="px-6 pb-6">
-        {/* <Card className="mb-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex-1">
-              <p className="text-foreground font-semibold mb-1">
-                Notificaciones
-              </p>
-              <p className="text-muted-foreground text-sm">
-                Recibir notificaciones de entrenamientos
-              </p>
-            </div>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={notifications}
-                onChange={(e) => setNotifications(e.target.checked)}
-                className="sr-only peer"
-              />
-              <div
-                className="w-11 h-6 border border-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"
-                style={{ backgroundColor: 'var(--muted)' }}
-              ></div>
-            </label>
-          </div>
-        </Card> */}
-
         <Card className="mb-4">
           <div className="flex items-center justify-between">
             <div className="flex-1">
@@ -100,7 +75,7 @@ export default function SettingsScreen() {
         </Card>
 
         {/* Botón de Gestionar Suscripciones - Solo para clientes, no para entrenadores */}
-        {user?.role === 'user' && (
+        {effectiveRole !== 'admin' && (
           <button
             onClick={() => navigate('/subscriptions')}
             className="w-full border border-border rounded-lg p-4 mb-4 hover:opacity-80 transition-colors flex items-center justify-between"
@@ -112,18 +87,9 @@ export default function SettingsScreen() {
                 <span className="text-foreground font-semibold block">
                   Gestionar Suscripciones
                 </span>
-                {hasSubscription && subscription ? (
-                  <span className="text-muted-foreground text-xs">
-                    {/* Plan{' '}
-                    {subscription.plan.charAt(0).toUpperCase() +
-                      subscription.plan.slice(1)}{' '}
-                    activo hasta {formatDate(subscription.endDate)} */}
-                  </span>
-                ) : (
-                  <span className="text-muted-foreground text-xs">
-                    No tienes un plan activo
-                  </span>
-                )}
+                <span className="text-muted-foreground text-xs">
+                  No tienes un plan activo
+                </span>
               </div>
             </div>
             <span className="text-muted-foreground">›</span>

@@ -10,30 +10,57 @@ export default function HomeScreen() {
   const { user } = useAuth()
   const { viewMode } = useAdminView()
 
+  const effectiveRole = user?.role === 'admin' ? viewMode : user?.role
+
+  const canAccessPremium =
+    effectiveRole === 'suscriptor' || effectiveRole === 'admin'
+
   const SHORTS = [
-    { id: 'pOPpa09aKuc?si=DSTbxDpbnUMFnIJE', title: 'Sentadillas correctas' },
-    { id: 'Qz7vx5hZkUA?si=lfpbfQrzy0K8e-_F', title: 'Core challenge' },
-    { id: 'qFBcn2QiGUQ?si=E5BSxPRk1tiUSg_s', title: 'Core challenge' },
-    { id: 'IUe-AyhQ4QE?si=Xgo8Sj03ZpOAHFfY', title: 'Core challenge' },
-    { id: '/I-ocDR-pipI?si=ojBmNgmNx-8rtSAH', title: 'Arrancando un dia' },
-    { id: 't86Rh_6gKPk?si=HBkDvs2jyOdxnzKE', title: 'Juanetes Separados' },
+    {
+      id: 'pOPpa09aKuc?si=DSTbxDpbnUMFnIJE',
+      title: 'Sentadillas correctas',
+      premium: false,
+    },
+    {
+      id: 'Qz7vx5hZkUA?si=lfpbfQrzy0K8e-_F',
+      title: 'Core challenge',
+      premium: true,
+    },
+    {
+      id: 'qFBcn2QiGUQ?si=E5BSxPRk1tiUSg_s',
+      title: 'Core challenge',
+      premium: true,
+    },
+    {
+      id: 'IUe-AyhQ4QE?si=Xgo8Sj03ZpOAHFfY',
+      title: 'Core challenge',
+      premium: false,
+    },
+    {
+      id: '/I-ocDR-pipI?si=ojBmNgmNx-8rtSAH',
+      title: 'Arrancando un dia',
+      premium: true,
+    },
+    {
+      id: 't86Rh_6gKPk?si=HBkDvs2jyOdxnzKE',
+      title: 'Juanetes Separados',
+      premium: false,
+    },
   ]
 
   return (
     <div className="min-h-screen bg-background pb-20">
       <div className="bg-background pt-12 pb-6 px-6">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center">
           <div>
-            <p className="text-muted-foreground text-sm">
-              Bienvenido de vuelta
-            </p>
+            <p className="text-muted-foreground text-sm">Hoy se entrena</p>
             <h1 className="text-foreground text-2xl font-bold">{user?.name}</h1>
           </div>
         </div>
       </div>
 
       <div className="px-6 pb-6">
-        <div className="mt-5">
+        <div className="mt-0">
           <h2 className="text-foreground text-lg font-semibold">
             La Frase del Día
           </h2>
@@ -151,29 +178,45 @@ export default function HomeScreen() {
               </div>
               <div className="mt-5">
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">
-                  {SHORTS.map((short) => (
-                    <div key={short.id}>
-                      <div
-                        className="relative w-full rounded-xl overflow-hidden cursor-pointer"
-                        style={{ paddingBottom: '177.78%' }}
-                        onClick={() =>
-                          window.open(
-                            `https://www.youtube.com/shorts/${short.id}`,
-                            '_blank',
-                          )
-                        }
-                      >
-                        <iframe
-                          className="absolute inset-0 w-full h-full"
-                          src={`https://www.youtube.com/embed/${short.id}`}
-                          title={short.title || 'Short'}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        />
-                        <div className="absolute inset-0" />
+                  {SHORTS.map((short) => {
+                    const isLocked = short.premium && !canAccessPremium
+
+                    return (
+                      <div key={short.id} className="relative">
+                        <div
+                          className={`relative w-full rounded-xl overflow-hidden ${
+                            isLocked
+                              ? 'opacity-40 pointer-events-none'
+                              : 'cursor-pointer'
+                          }`}
+                          style={{ paddingBottom: '177.78%' }}
+                          onClick={() => {
+                            if (!isLocked) {
+                              window.open(
+                                `https://www.youtube.com/shorts/${short.id}`,
+                                '_blank',
+                              )
+                            }
+                          }}
+                        >
+                          <iframe
+                            className="absolute inset-0 w-full h-full"
+                            src={`https://www.youtube.com/embed/${short.id}`}
+                            title={short.title}
+                            allowFullScreen
+                          />
+                        </div>
+
+                        {isLocked && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-xl">
+                            <span className="text-white font-semibold">
+                              Solo para suscriptores
+                            </span>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
               </div>
               <div className="flex justify-end">

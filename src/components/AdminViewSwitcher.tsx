@@ -29,10 +29,11 @@ export function AdminViewSwitcher() {
   if (user?.role !== 'admin') return null
 
   return (
-    <div className="flex flex-col border sm:flex-row justify-between bg-muted items-center p-2 mt-5 mx-5">
+    <div className="sticky top-0 z-50 flex flex-col border sm:flex-row justify-between bg-muted items-center p-2 mt-5 mx-5">
       <div className="flex flex-row gap-10 rounded-lg ml-2">
         {RUTAS_ADMIN.map((rutas) => (
           <button
+            key={rutas.key}
             onClick={() => navigate(rutas.path)}
             className="flex items-center justify-center hover:opacity-80 transition-colors"
           >
