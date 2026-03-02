@@ -187,3 +187,4 @@ En el root del proyecto creamos un archivo llamado `vercel.json`:
 - [ ] Implementar tests con Vitest
 - [ ] Revisar seguridad (roles y reglas de Firestore)
 - [ ] Implementar pasarela de pagos (Stripe / MercadoPago según país del usuario)
+- [ ] Implementar aceptación obligatoria de Privacy Policy (bloquear acceso hasta que el usuario acepte desde el modal)
