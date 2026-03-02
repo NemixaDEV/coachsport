@@ -188,3 +188,4 @@ En el root del proyecto creamos un archivo llamado `vercel.json`:
 - [ ] Revisar seguridad (roles y reglas de Firestore)
 - [ ] Implementar pasarela de pagos (Stripe / MercadoPago según país del usuario)
 - [ ] Implementar aceptación obligatoria de Privacy Policy (bloquear acceso hasta que el usuario acepte desde el modal)
+- [ ] Rediseñar la ventana de Progreso (calendario simple con días entrenados y gráfico de seguidilla)
