@@ -29,7 +29,7 @@ export default function BottomNav() {
     return location.pathname.startsWith(path)
   }
 
-  const maxVisible = 4 // Cantidad antes de ver el ...Mas
+  const maxVisible = 3 // Cantidad antes de ver el ...Mas
   const firstGroup = useMemo(() => navItems.slice(0, maxVisible), [navItems])
   const remainingItems = useMemo(() => navItems.slice(maxVisible), [navItems])
   const hasMore = remainingItems.length > 0
