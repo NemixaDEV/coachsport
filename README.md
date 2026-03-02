@@ -1,4 +1,45 @@
-# CoachSport.
+# CoachSport
+
+## Marca
+
+### Identidad visual de CoachSport
+
+CoachSport representa la simplicidad y accesibilidad de la calistenia, inspirándose en las barras paralelas y en formas geométricas básicas. La estética combina azules profundos, grises neutros y un acento en rojo energético, creando una identidad moderna y minimalista. La tipografía sans‑serif aporta una presencia sólida en títulos y una lectura limpia en textos.
+
+## 🎨 Paleta de colores
+
+| Color                            | Muestra                                                                                                    | HEX       | Uso recomendado                                       |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------- | ----------------------------------------------------- |
+| Primario: Azul petróleo profundo | <div style="width:20px; height:20px; background:#002B36; border-radius:4px;"></div>                        | `#002B36` | Elementos principales, fondos oscuros, identidad base |
+| Secundario: Rojo energía         | <div style="width:20px; height:20px; background:#FF3B30; border-radius:4px;"></div>                        | `#FF3B30` | Acentos fuertes, alertas, elementos destacados        |
+| Neutral oscuro: Gris grafito     | <div style="width:20px; height:20px; background:#2E2E2E; border-radius:4px;"></div>                        | `#2E2E2E` | Texto sobre fondos claros, UI secundaria              |
+| Neutral claro: Gris titanio      | <div style="width:20px; height:20px; background:#A7B0B5; border-radius:4px; border:1px solid #ccc;"></div> | `#A7B0B5` | Fondos suaves, separadores, tarjetas                  |
+| Acento positivo: Verde progreso  | <div style="width:20px; height:20px; background:#4CAF50; border-radius:4px;"></div>                        | `#4CAF50` | Indicadores de éxito, progreso, confirmaciones        |
+
+> La paleta busca transmitir claridad, fuerza y enfoque, manteniendo la estética minimalista de CoachSport.
+
+### De Grok Images al concepto final
+
+El proceso creativo comenzó generando ideas con Grok Images, explorando líneas rectas, figuras simples y composiciones que transmiten equilibrio y control. Estas primeras visuales ayudaron a definir un lenguaje claro y accesible, alineado con la filosofía de entrenar sin vueltas y con ejercicios que cualquiera puede hacer.
+
+<div style="display: flex; gap: 20px">
+<img src="./src/assets/screenshots/cs-grok-logo-v2.jpg" width="200" />
+<img src="./src/assets/screenshots/cs-grok-logo-v1.jpg" width="200" />
+</div>
+
+### Diseño final en Inkscape
+
+Las ideas iniciales se refinaron en Inkscape, donde se definieron proporciones, retículas y la paleta cromática final. El resultado es una marca versátil y escalable, construida con vectores limpios y colores planos, ideal para la UI/UX de la app y para materiales visuales en distintos tamaños.
+
+| Versión       | Vista                                                                                  |
+| ------------- | -------------------------------------------------------------------------------------- |
+| **Isotipo**   | <img src="./src/assets/images/cs-icono-rojo-azul-v1.png" width="50" />                 |
+| **Logotipo**  | <img src="./src/assets/images/cs-logotipo-blanco-azul-v1.png" width="200" />           |
+| **Imagotipo** | <img src="./src/assets/images/cs-logo-letras-blancas-fondo-azul-v1.png" width="250" /> |
+
+> Las formas geométricas simples y las barras paralelas representan la esencia de la calistenia: simplicidad, equilibrio y accesibilidad.
+
+## Desarrollo
 
 **Funcionalidades Principales**
 
@@ -15,7 +56,7 @@
 
 - Vercel
 
-# Metodología: Vibe Coding & Refactor
+### Metodología: Vibe Coding & Refactor
 
 El desarrollo se divide en dos fases:
 
@@ -27,13 +68,13 @@ El desarrollo se divide en dos fases:
   - Lógica de Pagos: Implementar manualmente el flujo de Stripe/Mercado Pago y Webhooks en Vercel para asegurar la integridad de las transacciones.
   - Seguridad: Escribir las Firestore Rules para proteger los datos que la IA dejó abiertos por defecto(Vamos a implementar una estrategia de seguridad desde el cliente y desde el server). asegurando que las reglas de Firestore actúen como firewall y las Functions como validadoras de lógica.
 
-# Blueprint
+### Blueprint
 
 Este proyecto, además de ser CoachSport, es nuestro Blueprint personal. La idea es que todo el flujo que armemos aca nos sirva de template para no tener que configurar todo desde cero en el próximo proyecto. Aunque no somos expertos en Firebase, logramos dominar el flow de trabajo y arrancar con una base sólida.
 
-# Proceso
+## Proceso
 
-## Para crear un proyecto nuevo en PNPM.
+### Para crear un proyecto nuevo en PNPM.
 
 ```bash
     pnpm create next-app@latest . --typescript
@@ -46,7 +87,7 @@ Para usar un gestor distinto a **pnpm**:
 - **yarn:** `yarn create next-app . --typescript`
 - **bun:** `bun create next-app@latest . --typescript`
 
-## Integrando dependencias.
+### Integrando dependencias.
 
 Para instalar los paquetes necesarios:
 
@@ -61,7 +102,7 @@ npm install
 yarn install
 ```
 
-## Correr proyecto.
+### Correr proyecto.
 
 | Acción         | pnpm         | npm             | yarn         |
 | :------------- | :----------- | :-------------- | :----------- |
@@ -69,11 +110,11 @@ yarn install
 | **Build**      | `pnpm build` | `npm run build` | `yarn build` |
 | **Producción** | `pnpm start` | `npm run start` | `yarn start` |
 
-## Stack
+### Stack
 
 - React, TypeScript, TailwindCSS
 
-## Auth y DB
+### Auth y DB
 
 Para el Auth y Base de datos vamos a utilizar Firebase y Firestore.
 
@@ -127,7 +168,7 @@ Te lo corrijo manteniendo tu estilo y estructura 👇
 
 ---
 
-## Init Functions
+### Init Functions
 
 ```bash
 firebase init functions
@@ -142,14 +183,14 @@ Comenzamos integrándolo al entorno local. Luego deployamos las Functions en el 
 
 ---
 
-## Blaze
+### Blaze
 
 Para poder probar toda la funcionalidad de Cloud Functions hay que suscribirse al plan **Blaze**.
 Por ahora esto no es necesario, pero dejamos todo listo para una implementación futura.
 
 ---
 
-## Vercel
+### Vercel
 
 Creamos una cuenta en Vercel y la conectamos al repositorio en GitHub.
 La configuramos para usar dos ramas (_branches_): una de **dev** y otra llamada **master**.
@@ -160,7 +201,7 @@ Luego, de forma manual, hacemos un **PR** desde `dev` hacia `master`, lo que act
 
 ---
 
-## Notas
+### Notas
 
 Pequeño error que encontramos: hemos usado Vercel anteriormente con **Next.js** sin problemas, pero con **React** aparece un pequeño error de DNS cuando hacemos _reload_ en la página y esta se pierde.
 
@@ -174,7 +215,7 @@ En el root del proyecto creamos un archivo llamado `vercel.json`:
 }
 ```
 
-## Roadmap
+### Roadmap
 
 - [ ] Pulir UI y detalles visuales
 - [ ] Mejorar filtros y UI de la biblioteca de ejercicios
