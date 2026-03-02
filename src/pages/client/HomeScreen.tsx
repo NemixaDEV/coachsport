@@ -195,6 +195,7 @@ export default function HomeScreen() {
                               window.open(
                                 `https://www.youtube.com/shorts/${short.id}`,
                                 '_blank',
+                                'noopener,noreferrer',
                               )
                             }
                           }}
@@ -205,6 +206,8 @@ export default function HomeScreen() {
                             title={short.title}
                             allowFullScreen
                           />
+
+                          {!isLocked && <div className="absolute inset-0" />}
                         </div>
 
                         {isLocked && (
