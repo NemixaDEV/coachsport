@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react'
 
-export type ViewMode = 'admin' | 'usuario' | 'suscriptor'
+export type ViewMode = 'admin' | 'user' | 'suscriptor'
 
 interface AdminViewContextType {
   viewMode: ViewMode
