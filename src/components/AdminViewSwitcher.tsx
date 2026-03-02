@@ -30,7 +30,22 @@ export function AdminViewSwitcher() {
 
   return (
     <div className="sticky top-0 z-50 flex flex-col border sm:flex-row justify-between bg-muted items-center p-2 mt-5 mx-5">
-      <div className="flex flex-row gap-10 rounded-lg ml-2">
+      <div className="gap-2 bg-muted bg-red-50 mt-2 sm:mt-0">
+        {MODOS.map(({ key, label }) => (
+          <button
+            key={key}
+            onClick={() => setViewMode(key)}
+            className={`flex-1 font-semibold py-1.5 px-2 transition-all ${
+              viewMode === key
+                ? 'bg-cinnabar text-white'
+                : 'text-muted-foreground hover:text-black'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <div className="flex flex-row gap-10 rounded-lg mr-2 mt-5 mb-2 sm:my-0">
         {RUTAS_ADMIN.map((rutas) => (
           <button
             key={rutas.key}
@@ -43,21 +58,6 @@ export function AdminViewSwitcher() {
                 isActive(rutas.path) ? 'text-cinnabar' : 'text-foreground'
               }
             />
-          </button>
-        ))}
-      </div>
-      <div className="gap-2 bg-muted bg-red-50 mt-3 sm:mt-0">
-        {MODOS.map(({ key, label }) => (
-          <button
-            key={key}
-            onClick={() => setViewMode(key)}
-            className={`flex-1 font-semibold py-1.5 px-2 transition-all ${
-              viewMode === key
-                ? 'bg-cinnabar text-white'
-                : 'text-muted-foreground hover:text-black'
-            }`}
-          >
-            {label}
           </button>
         ))}
       </div>
