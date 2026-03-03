@@ -8,13 +8,13 @@ CoachSport representa la simplicidad y accesibilidad de la calistenia, inspirán
 
 ## 🎨 Paleta de colores
 
-| Color                            | Muestra                                                                                                    | HEX       | Uso recomendado                                       |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------- | ----------------------------------------------------- |
-| Primario: Azul petróleo profundo | <div style="width:20px; height:20px; background:#002B36; border-radius:4px;"></div>                        | `#002B36` | Elementos principales, fondos oscuros, identidad base |
-| Secundario: Rojo energía         | <div style="width:20px; height:20px; background:#FF3B30; border-radius:4px;"></div>                        | `#FF3B30` | Acentos fuertes, alertas, elementos destacados        |
-| Neutral oscuro: Gris grafito     | <div style="width:20px; height:20px; background:#2E2E2E; border-radius:4px;"></div>                        | `#2E2E2E` | Texto sobre fondos claros, UI secundaria              |
-| Neutral claro: Gris titanio      | <div style="width:20px; height:20px; background:#A7B0B5; border-radius:4px; border:1px solid #ccc;"></div> | `#A7B0B5` | Fondos suaves, separadores, tarjetas                  |
-| Acento positivo: Verde progreso  | <div style="width:20px; height:20px; background:#4CAF50; border-radius:4px;"></div>                        | `#4CAF50` | Indicadores de éxito, progreso, confirmaciones        |
+| Color                            | Muestra                                                                                                               | HEX       | Uso recomendado                                       |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------| --------- | ----------------------------------------------------- |
+| Primario: Azul petróleo profundo | <svg width="20" height="20"><rect width="20" height="20" fill="#002B36" rx="4"/></svg>                                | `#002B36` | Elementos principales, fondos oscuros, identidad base |
+| Secundario: Rojo energía         | <svg width="20" height="20"><rect width="20" height="20" fill="#FF3B30" rx="4"/></svg>                                | `#FF3B30` | Acentos fuertes, alertas, elementos destacados        |
+| Neutral oscuro: Gris grafito     | <svg width="20" height="20"><rect width="20" height="20" fill="#2E2E2E" rx="4"/></svg>                                | `#2E2E2E` | Texto sobre fondos claros, UI secundaria              |
+| Neutral claro: Gris titanio      | <svg width="20" height="20"><rect width="20" height="20" fill="#A7B0B5" rx="4" stroke="#ccc" stroke-width="1"/></svg> | `#A7B0B5` | Fondos suaves, separadores, tarjetas                  |
+| Acento positivo: Verde progreso  | <svg width="20" height="20"><rect width="20" height="20" fill="#4CAF50" rx="4"/></svg>                                | `#4CAF50` | Indicadores de éxito, progreso, confirmaciones        |
 
 > La paleta busca transmitir claridad, fuerza y enfoque, manteniendo la estética minimalista de CoachSport.
 
