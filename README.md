@@ -18,7 +18,7 @@ CoachSport representa la simplicidad y accesibilidad de la calistenia, inspirán
 
 > La paleta busca transmitir claridad, fuerza y enfoque, manteniendo la estética minimalista de CoachSport.
 
-### De Grok Images al concepto final
+### De Grok Imagine al concepto final
 
 El proceso creativo comenzó generando ideas con Grok Images, explorando líneas rectas, figuras simples y composiciones que transmiten equilibrio y control. Estas primeras visuales ayudaron a definir un lenguaje claro y accesible, alineado con la filosofía de entrenar sin vueltas y con ejercicios que cualquiera puede hacer.
 
@@ -163,8 +163,6 @@ Luego cerramos e iniciamos terminal nuevamente para asegurar que tome las variab
 Si llegamos a tener un problema de sessiones cruzadas cuando queremos loguear desde el CLI, solucion `firebase login --no-localhost` para que nos de un link manual.
 
 Seguimos el link, y en algun momento no pedira reauth `firebase login --reauth`
-
-Te lo corrijo manteniendo tu estilo y estructura 👇
 
 ---
 
